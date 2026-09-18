@@ -1,0 +1,6 @@
+
+#Compiler Symbols
+src/compile_commands.json
+
+#Auxillary Mac Files
+.DS_STORE
