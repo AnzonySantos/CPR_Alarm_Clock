@@ -35,7 +35,7 @@ extern uint8_t global_clock_seconds;
 ///Display invert functions
 void invert_display();
 void revert_display();
-void toggle_invert(bool isInverted);
+void toggle_invert(bool is_inverted);
 
 ///RTC clock functions
 void set_rtc_time(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);

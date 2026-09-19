@@ -10,8 +10,8 @@ void revert_display(){
     u8g2.sendF("c", REVERT_DISPLAY_COMMAND);
 }
 
-void toggle_invert(bool isInverted){
-    if (isInverted){
+void toggle_invert(bool is_inverted){
+    if (is_inverted){
         revert_display();
     }
     else{
