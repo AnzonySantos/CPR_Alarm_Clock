@@ -33,7 +33,10 @@ void library_setup(){
     u8g2.begin();
     rtc.begin();
     prefs.begin("alarm_clock_state_variables", false);
-
+    
+    if (debug_flag){
+        Serial.begin(9600);
+    }
     return;
 }
 void initalize_data(){

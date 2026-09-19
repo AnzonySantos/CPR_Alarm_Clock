@@ -8,6 +8,7 @@
 #include <Preferences.h>
 
 #include "initialization.h"
+#include "hardware_helpers.h"
 
 //Hardware Iniitalization Objects
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(
@@ -18,6 +19,8 @@ U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(
 RTC_DS3231 rtc;
 ESP32Encoder encoder;
 Preferences prefs;
+
+bool debug_flag = 0; // If you want the serial monitor to be on so you can print debug statemnts, here you go 
 
 void setup() {
   initalization();
