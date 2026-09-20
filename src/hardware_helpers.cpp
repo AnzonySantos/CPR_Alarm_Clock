@@ -57,3 +57,10 @@ void set_rtc_time(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_
     ///May want to include guards and debug prints, but for now it should be fine.
     rtc.adjust(DateTime(year, month, day, hour, minute, second));
 }
+
+String currenttimestring(){
+    get_rtc_time();
+    // current alarm time string
+    String time_string = String(global_clock_hours) + ":" + String(global_clock_minutes) + ":" + String(global_clock_seconds);
+    return time_string;
+}
