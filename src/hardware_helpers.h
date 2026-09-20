@@ -47,6 +47,6 @@ void play_sound(uint8_t tone);
 //next_snooze_length()
 
 //Alarm functions
-String currenttimestring();
+int current_time_seconds();
 
 #endif //HARDWARE_HELPERS_H

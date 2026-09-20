@@ -58,9 +58,9 @@ void set_rtc_time(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_
     rtc.adjust(DateTime(year, month, day, hour, minute, second));
 }
 
-String currenttimestring(){
+int current_time_seconds(){
     get_rtc_time();
-    // current alarm time string
-    String time_string = String(global_clock_hours) + ":" + String(global_clock_minutes) + ":" + String(global_clock_seconds);
-    return time_string;
+    // current time seconds
+    return (current_rtc_time.hour() * 3600) + (current_rtc_time.minute() * 60) + current_rtc_time.second();
+}
 }
