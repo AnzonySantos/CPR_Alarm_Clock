@@ -1,6 +1,8 @@
 //Breif: Serves as the header file for the initalization functions (hardware, libraries, and data)
 #include "initialization.h"
 #include <navigation.h>
+#include "globals.h"
+
 void initalization(){
     hardware_setup();
     library_setup();
@@ -22,8 +24,8 @@ void hardware_setup(){
     encoder.clearCount();
 
     //Interrupt Declarations
-    attachInterrupt(ROT_ENC_BUTTON_PIN, button1_callback, FALLING);
-    attachInterrupt(PUSH_BUTTON2_PIN, button2_callback, FALLING);
+    attachInterrupt(ROT_ENC_BUTTON_PIN, button2_callback, FALLING);
+    attachInterrupt(PUSH_BUTTON2_PIN, button1_callback, FALLING);
     attachInterrupt(PUSH_BUTTON3_PIN, button3_callback, FALLING);
 }
 
@@ -64,7 +66,7 @@ void back(){//back helps with navigation
     x_level = true;
     y_level = false;
 }
-string next_day(std::string day){ //helps with navigation
+String next_day(String day){ //helps with navigation
     if (day == "Every")return "Mon";
     if (day == "Mon")return "Tue";
     if (day == "Tue")return "Wed";
@@ -83,16 +85,13 @@ int next_snooze_length(int length){ //helps with navigation
 void button2_callback(){
     count = 0;
     if (!in_menu){
-        //if we are not in menu we are not selecting
         return;
     }
     if (x_level){
-        //if we are in x_level we must go to y level
         x_level = false;
         y_level = true;
     }
     if (!y_level){
-        //this is bad should not branch here
         return;
     }
     switch(x){
@@ -120,119 +119,78 @@ void button2_callback(){
                     mil_time_flag = !mil_time_flag;
                 return;
                 case 3:
-                    back();//to be defined
+                    back();
                 return;
                 default:
                 return;
             }
-        return;
-        case 1:
-            switch(y){
-                case 0:
-                alarm1_toggle = !alarm1_toggle;
-                return;
-                case 1:
-                alarm1_hours_flag = !alarm1_hours_flag;
-                return;
-                case 2:
-                alarm1_minutes_flag = !alarm1_minutes_flag;
-                return;
-                case 3:
-                alarm1_sec_flag = !alarm1_sec_flag;
-                return;
-                case 4:
-                selected_sound1 = % 3;
-                return;
-                case 5:
-                snooze1_delay_flag = !snooze1_delay_flag;
-                return;
-                case 6:
-                alarm_day1 = next_day(alarm_day1);//to be defined
-                return;
-                case 7:
-                snooze1_amount_flag = !snooze1_amount_flag;
-                return;
-                case 8:
-                snooze1_length = next_snooze_length(snooze1_length);//to be defined
-                return;
-                case 9:
-                back();//to be defined
-                return;
-                default:
-                return;
-            }
-        //alarm 1
-        return;
-        case 2:
-        //alarm 2
-            switch(y)
-                case 0:
-                alarm2_toggle = !alarm2_toggle;
-                case 1:
-                alarm2_hours_flag = !alarm2_hours_flag;
-                case 2:
-                alarm2_minutes_flag = !alarm2_minutes_flag;
-                case 3:
-                alarm2_sec_flag = !alarm2_sec_flag;
-                case 4:
-                selected_sound2 = % 3;
-                case 5:
-                snooze2_delay_flag = !snooze2_delay_flag;
-                case 6:
-                alarm_day2 = next_day(alarm_day2);//to be defined
-                case 7:
-                snooze2_amount_flag = !snooze2_amount_flag;
-                case 8:
-                snooze2_length = next_snooze_length(snooze2_length);//to be defined
-                case 9:
-                back();//to be defined
-                default:
-                return;
-        return;
-        case 3:
-        //alarm 3
-            switch(y):
-                case 0:
-                alarm3_toggle = !alarm3_toggle;
-                case 1:
-                alarm3_hours_flag = !alarm3_hours_flag;
-                case 2:
-                alarm3_minutes_flag = !alarm3_minutes_flag;
-                case 3:
-                alarm3_sec_flag = !alarm3_sec_flag;
-                case 4:
-                selected_sound3 = % 3;
-                case 5:
-                snooze3_delay_flag = !snooze3_delay_flag;
-                case 6:
-                alarm_day3 = next_day(alarm_day3);//to be defined
-                case 7:
-                snooze3_amount_flag = !snooze3_amount_flag;
-                case 8:
-                snooze3_length = next_snooze_length(snooze3_length);//to be defined
-                case 9:
-                back();//to be defined
-                default:
-                return;
-        return;
-        case 4:
-        //clock settings
-            switch(y):
-                case 0:
-                clock_hour_flag = !clock_hour_flag;
-                case 1:
-                clock_minute_flag = !clock_minute_flag;
-                case 2:
-                clock_second_flag = !clock_second_flag;
-                case 3:
-                back();//to be defined
-                default:
-                return;
-        return;
-        default:
-        //bad
         return;
 
+        case 1:
+        case 2:
+        case 3: {
+            int alarm_index = x - 1;   // x=1 -> alarms[0], x=2 -> alarms[1], x=3 -> alarms[2]
+            AlarmSettings &a = alarms[alarm_index];
+            what_alarm = alarm_index;
+
+            switch(y){
+                case 0:
+                    a.toggle = !a.toggle;
+                return;
+                case 1:
+                    a.hours_flag = !a.hours_flag;
+                return;
+                case 2:
+                    a.minutes_flag = !a.minutes_flag;
+                return;
+                case 3:
+                    a.secs_flag = !a.secs_flag;
+                return;
+                case 4:
+                    a.selected_sound = (a.selected_sound + 1) % 3;
+                return;
+                case 5:
+                    a.snooze_delay_flag = !a.snooze_delay_flag;
+                return;
+                case 6:
+                    a.day = (a.day + 1) % 8;
+                return;
+                case 7:
+                    a.snooze_amount_flag = !a.snooze_amount_flag;
+                return;
+                case 8:
+                return;   // snooze_length placeholder — see note below
+                case 9:
+                    back();
+                return;
+                default:
+                return;
+            }
+        }
+        return;
+
+        case 4:
+        //clock settings
+            switch(y){
+                case 0:
+                clock_hour_flag = !clock_hour_flag;
+                return;
+                case 1:
+                clock_minute_flag = !clock_minute_flag;
+                return;
+                case 2:
+                clock_second_flag = !clock_second_flag;
+                return;
+                case 3:
+                back();
+                return;
+                default:
+                return;
+            }
+        return;
+
+        default:
+        return;
     }
 }
 void button3_callback(){

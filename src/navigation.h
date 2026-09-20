@@ -1,7 +1,7 @@
 #ifndef NAVIGATION_H
 #define NAVIGATION_H_H
 
-#include 
+#include <string>
 
 extern bool in_menu;
 extern int x;
@@ -32,9 +32,9 @@ extern bool snooze1_delay_flag;
 extern bool snooze2_delay_flag;
 extern bool snooze3_delay_flag;
 
-extern std::string alarm_day1;
-extern std::string alarm_day2;
-extern std::string alarm_day3;
+extern String alarm_day1;
+extern String alarm_day2;
+extern String alarm_day3;
 
 extern bool snooze1_amount_flag;
 extern bool snooze2_amount_flag;
@@ -54,6 +54,6 @@ extern bool clock_second_flag;
 extern bool x_level;
 extern bool y_level;
 
-extern std::string bright;
+extern String bright;
 
 #endif

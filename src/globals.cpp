@@ -12,6 +12,7 @@ bool buzzer_active = false;
 int what_alarm = -1;
 volatile bool stop_alarm = false;
 volatile bool snooze_alarm = false;
+bool is_alarm = false;
 
 bool in_menu = false;
 int x = 0;
@@ -24,9 +25,10 @@ bool dls_flag = false;
 bool mil_time_flag = false;
 uint16_t raw_brightness_value = 0;
 
-int global_clock_hours = 0;
-int global_clock_minutes = 0;
-int global_clock_seconds = 0;
+
+uint8_t global_clock_hours = 0;
+uint8_t global_clock_minutes = 0;
+uint8_t global_clock_seconds = 0;
 int global_clock_day = 1;
 int global_clock_month = 1;
 int global_clock_year = 2000;

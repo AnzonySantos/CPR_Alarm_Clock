@@ -4,39 +4,21 @@
 #include <Wire.h>
 #include <U8g2lib.h>
 #include <RTClib.h>
-#include <Globals.h>
 #include <ESP32Encoder.h>
 #include <Preferences.h>
 #include <navigation.h>
 #include "initialization.h"
 #include "hardware_helpers.h"
+#include "globals.h"
+#include "display.h"
 
-uint8_t global_clock_hours;
-uint8_t global_clock_minutes;
-uint8_t global_clock_seconds;
 
-// Hardware Iniitalization Objects
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(
-  U8G2_R0,
-  U8X8_PIN_NONE
-  );
-  
-RTC_DS3231 rtc;
-ESP32Encoder encoder;
-Preferences prefs;
-
-bool debug_flag = 0; // If you want the serial monitor to be on so you can print debug statemnts, here you go 
-
-bool in_menu = false;
-
-/* Alarm Variables */
-std::vector<AlarmSettings> alarms(3);
-unsigned long alarm_start_time = 0;
-bool buzzer_active = false;
-bool is_alarm = false;
-int what_alarm = -1;
-volatile bool stop_alarm = false;
-volatile bool snooze_alarm = false;
+/* Nav Variables */
+int y_max = 9;
+int x_max = 4;
+uint8_t clock_hours = 0;
+uint8_t clock_mins = 0;
+uint8_t clock_sec = 0;
 
 /* Ran once on setup */
 void setup() {
@@ -46,135 +28,76 @@ void setup() {
 
 /* Main Loop */
 void loop() {
-
-
-
-  //wills navigation logic 
+  update_display(x, y, in_menu);
+  count = encoder.getCount();
   if(in_menu){
     if(x_level){
-      x = count/2%5;
+      x = count/2 % 5;
       if(x < 0){
-        //this logic for x may need to be tweaked a bit
         x = x_max + x;
       }
+      count = 0;
     }
     else if(y_level){
-      if(alarm1_hours_flag){
-        alarm1_hours += count/2;
-        alarm1_hours = alarm1_hours%24;
-        count = 0;
-      }
-      else if(alarm1_minutes_flag){
-        alarm1_mins += count/2;
-        alarm1_mins = alarm1_mins%60;
-        count = 0;
-      }
-      else if(alarm1_sec_flag){
-        alarm1_sec += count/2;
-        alarm1_sec = alarm1_sec%60;
-        count = 0;
-      }
-      else if(snooze1_delay_flag){
-        snooze1_delay += count/2;
-        if(snooze1_delay > 15){
-          snooze1_delay = 5;
-        }
-        count = 0
-      }
-      else if(snooze1_amount_flag){
-        snooze1_amount += count/2;
-        if(snooze1_amount > 10){
-          snooze1_amount = 0;
-        }
-        count = 0;
-      }
-      else if(alarm2_hours_flag){
-        alarm2_hours += count/2;
-        alarm2_hours = alarm2_hours%24;
-        count = 0;
-      }
-      else if(alarm2_minutes_flag){
-        alarm2_mins += count/2;
-        alarm2_mins = alarm2_mins%60;
-        count = 0;
-      }
-      else if(alarm2_sec_flag){
-        alarm2_sec += count/2;
-        alarm2_sec = alarm2_sec%60;
-        count = 0;
-      }
-      else if(snooze2_delay_flag){
-        snooze2_delay += count/2;
-        if(snooze2_delay > 15){
-          snooze2_delay = 5;
-        }
-        count = 0
-      }
-      else if(snooze2_amount_flag){
-        snooze2_amount += count/2;
-        if(snooze2_amount > 10){
-          snooze2_amount = 0;
-        }
-        count = 0;
-      }
-      else if(alarm3_hours_flag){
-        alarm3_hours += count/2;
-        alarm3_hours = alarm3_hours%24;
-        count = 0;
-      }
-      else if(alarm3_minutes_flag){
-        alarm3_mins += count/2;
-        alarm3_mins = alarm3_mins%60;
-        count = 0;
-      }
-      else if(alarm3_sec_flag){
-        alarm3_sec += count/2;
-        alarm3_sec = alarm3_sec%60;
-        count = 0;
-      }
-      else if(snooze3_delay_flag){
-        snooze3_delay += count/2;
-        if(snooze3_delay > 15){
-          snooze3_delay = 5;
-        }
-        count = 0
-      }
-      else if(snooze3_amount_flag){
-        snooze3_amount += count/2;
-        if(snooze3_amount > 10){
-          snooze3_amount = 0;
-        }
-        count = 0;
-      }
-      else if(clock_hours_flag){
-        clock_hours += count/2;
-        clock_hours = clock_hours%24;
-        count = 0;
-      }
-      else if(clock_minutes_flag){
-        clock_mins += count/2;
-        clock_mins = clock_mins%60;
-        count = 0;
-      }
-      else if(clock_sec_flag){
-        clock_sec += count/2;
-        clock_sec = clock_sec%60;
-        count = 0;
-      }
-      else if(x == 1 || x == 2 || x == 3){
-        y = count/2%10;
-        if(y < 0){
-          y = y_max + y;
-        }
-      }
-      else if(x == 4 || x==0){
-        y = count/2%4;
-        if(y < 0){
-          y = y_max + y;
-        }
-      }
+  if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].hours_flag){
+    alarms[what_alarm].hours += count/2;
+    alarms[what_alarm].hours = alarms[what_alarm].hours % 24;
+    count = 0;
+  }
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].minutes_flag){
+    alarms[what_alarm].minutes += count/2;
+    alarms[what_alarm].minutes = alarms[what_alarm].minutes % 60;
+    count = 0;
+  }
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].secs_flag){
+    alarms[what_alarm].second += count/2;
+    alarms[what_alarm].second = alarms[what_alarm].second % 60;
+    count = 0;
+  }
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_delay_flag){
+    alarms[what_alarm].snooze_delay += count/2;
+    if(alarms[what_alarm].snooze_delay > 15){
+      alarms[what_alarm].snooze_delay = 5;
+    }
+    count = 0;
+  }
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_amount_flag){
+    alarms[what_alarm].snooze_amount += count/2;
+    if(alarms[what_alarm].snooze_amount > 10){
+      alarms[what_alarm].snooze_amount = 0;
+    }
+    count = 0;
+  }
+  else if(clock_hour_flag){
+    clock_hours += count/2;
+    clock_hours = clock_hours % 24;
+    count = 0;
+  }
+  else if(clock_minute_flag){
+    clock_mins += count/2;
+    clock_mins = clock_mins % 60;
+    count = 0;
+  }
+  else if(clock_second_flag){
+    clock_sec += count/2;
+    clock_sec = clock_sec % 60;
+    count = 0;
+  }
+  else if(x == 1 || x == 2 || x == 3){
+    y = count/2 % 10;
+    if(y < 0){
+      y = y_max + y;
     }
   }
+  else if(x == 4 || x == 0){
+    y = count/2 % 4;
+    if(y < 0){
+      y = y_max + y;
+    }
+  }
+    }
+  }
+
   /* 
   ALARM PORTION
   */

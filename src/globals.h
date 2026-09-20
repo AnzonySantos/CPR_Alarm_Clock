@@ -72,9 +72,9 @@ extern bool mil_time_flag;
 // Sensor acquisition remains for the integration pass; default is deterministic.
 extern uint16_t raw_brightness_value;
 
-extern int global_clock_hours;
-extern int global_clock_minutes;
-extern int global_clock_seconds;
+extern uint8_t global_clock_hours;
+extern uint8_t global_clock_minutes;
+extern uint8_t global_clock_seconds;
 extern int global_clock_day;
 extern int global_clock_month;
 extern int global_clock_year;
@@ -82,5 +82,16 @@ extern int global_clock_weekday;
 extern bool clock_hour_flag;
 extern bool clock_minute_flag;
 extern bool clock_second_flag;
+
+extern int y_max;
+extern uint8_t clock_hours;
+extern uint8_t clock_mins;
+extern uint8_t clock_sec;
+extern bool clock_hour_flag;
+extern bool clock_minute_flag;
+extern bool clock_second_flag;
+
+extern int x_max;
+extern bool is_alarm;
 
 const char* alarm_day_text(int day);
