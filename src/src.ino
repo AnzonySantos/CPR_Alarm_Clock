@@ -6,7 +6,7 @@
 #include <RTClib.h>
 #include <ESP32Encoder.h>
 #include <Preferences.h>
-
+#include <navigation.h>
 #include "initialization.h"
 #include "hardware_helpers.h"
 
@@ -27,5 +27,5 @@ void setup() {
 }
 
 void loop() {
-  test
+
 }
