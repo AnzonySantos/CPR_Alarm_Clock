@@ -47,20 +47,21 @@ void play_sound(uint8_t tone){
 
 ///Gets the time from the rtc in a 24hr format
 void get_rtc_time(){
-    ///Note: If you really wanted to you could also get year, month, and day information from here
     DateTime current_rtc_time = rtc.now();
     global_clock_hours = current_rtc_time.hour();
     global_clock_minutes = current_rtc_time.minute();
     global_clock_seconds = current_rtc_time.second();
+    global_clock_day = current_rtc_time.day();
+    global_clock_month = current_rtc_time.month();
+    global_clock_year = current_rtc_time.year();
+    global_clock_weekday = current_rtc_time.dayOfTheWeek();
 }
-void set_rtc_time(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second){
+void set_rtc_time(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second){
     ///May want to include guards and debug prints, but for now it should be fine.
     rtc.adjust(DateTime(year, month, day, hour, minute, second));
 }
 
 int current_time_seconds(){
     get_rtc_time();
-    DateTime current_rtc_time = rtc.now();
-    // current time seconds
-    return (current_rtc_time.hour() * 3600) + (current_rtc_time.minute() * 60) + current_rtc_time.second();
+    return global_clock_hours * 3600 + global_clock_minutes * 60 + global_clock_seconds;
 }

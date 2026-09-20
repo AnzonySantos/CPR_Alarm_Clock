@@ -2,24 +2,8 @@
 #ifndef HARDWARE_HELPERS_H
 #define HARDWARE_HELPERS_H
 
-#include <Wire.h>
-#include <cstdint>
-#include <u8g2lib.h>
-#include <RTClib.h>
-#include <ESP32Encoder.h>
-#include <Preferences.h>
-#include <stdint.h> //I mainly just use this as it is what im used to, we can use regular ints i think
-
-///An idea to get rid of all the coupled include statements
-///could be to make one large state_variable and macros file
-#include "initialization.h" /// Needed for pindefinitions
-
-extern bool debug_flag;
-
-//Should this just be a struct?
-extern uint8_t global_clock_hours;
-extern uint8_t global_clock_minutes;
-extern uint8_t global_clock_seconds;
+#include "globals.h"
+#include "initialization.h"
 
 ///Frequency Of Tones and Duty Cycle
 #define OFF                         0
@@ -38,7 +22,7 @@ void revert_display();
 void toggle_invert(bool is_inverted);
 
 ///RTC clock functions
-void set_rtc_time(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
+void set_rtc_time(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
 void get_rtc_time();///Need to include some parameter, however im not sure what that struct looks like yet
 
 ///Audio Functions

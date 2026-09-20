@@ -2,6 +2,10 @@
 #pragma once
 #include <Arduino.h>
 #include <vector>
+#include <U8g2lib.h>
+#include <RTClib.h>
+#include <ESP32Encoder.h>
+#include <Preferences.h>
 
 // Alarm struct
 struct AlarmSettings {
@@ -21,7 +25,8 @@ struct AlarmSettings {
 
   int  selected_sound = 1;
 
-  String alarm_day = "Everyday";
+  // day is authoritative: 0=Sunday through 6=Saturday, 7=Every.
+  // Display text is derived; no separate editable day string.
 
   int  snooze_delay  = 5;
   int  snooze_amount = 5;
@@ -29,6 +34,8 @@ struct AlarmSettings {
   bool snooze_amount_flag = false;
   bool is_snooze = false; // is this alarm a temp snooze alarm
 
+  // Legacy navigation value; intentionally NOT mapped to sounding duration yet.
+  int snooze_length = 0;
   int alarm_durration_seconds = 10;
 
   //convert alarm time to seconds
@@ -36,15 +43,44 @@ struct AlarmSettings {
         return (hours * 3600) + (minutes * 60) + second;
     }
 };
-/* 
-Alarm Variables
-*/
+// Definitions live in globals.cpp. Main-loop code owns mutable state;
+// button ISRs only publish events through initialization.cpp.
+extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2;
+extern RTC_DS3231 rtc;
+extern ESP32Encoder encoder;
+extern Preferences prefs;
+extern bool debug_flag;
+
 extern std::vector<AlarmSettings> alarms;
-extern int selected_alarm;
+extern unsigned long alarm_start_time;
 extern bool buzzer_active;
-extern int what_alarm;
+extern int what_alarm; // -1 means no selected runtime alarm.
 extern volatile bool stop_alarm;
 extern volatile bool snooze_alarm;
 
-// other variables 
-extern bool in_menu;
+extern bool in_menu; // true=menu, false=home (navigation AND display).
+extern int x;
+extern int y;
+extern int64_t count;
+extern bool x_level;
+extern bool y_level;
+
+// Preserve navigation's brightness spellings: auto/high/med/low.
+extern String bright;
+extern bool dls_flag;
+extern bool mil_time_flag;
+// Sensor acquisition remains for the integration pass; default is deterministic.
+extern uint16_t raw_brightness_value;
+
+extern int global_clock_hours;
+extern int global_clock_minutes;
+extern int global_clock_seconds;
+extern int global_clock_day;
+extern int global_clock_month;
+extern int global_clock_year;
+extern int global_clock_weekday;
+extern bool clock_hour_flag;
+extern bool clock_minute_flag;
+extern bool clock_second_flag;
+
+const char* alarm_day_text(int day);
