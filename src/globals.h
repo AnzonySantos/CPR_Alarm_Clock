@@ -12,6 +12,8 @@ struct AlarmSettings {
   int second  = 0;
 
   int day = 0;
+  int month_day = 0;
+  int month = 0;
 
   bool hours_flag   = false;
   bool minutes_flag = false;
@@ -25,6 +27,7 @@ struct AlarmSettings {
   int  snooze_amount = 5;
   bool snooze_delay_flag  = false;
   bool snooze_amount_flag = false;
+  bool is_snooze = false; // is this alarm a temp snooze alarm
 
   int alarm_durration_seconds = 10;
 
