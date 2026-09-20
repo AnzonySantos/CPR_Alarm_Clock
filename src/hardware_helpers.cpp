@@ -57,3 +57,10 @@ void set_rtc_time(uint8_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_
     ///May want to include guards and debug prints, but for now it should be fine.
     rtc.adjust(DateTime(year, month, day, hour, minute, second));
 }
+
+int current_time_seconds(){
+    get_rtc_time();
+    DateTime current_rtc_time = rtc.now();
+    // current time seconds
+    return (current_rtc_time.hour() * 3600) + (current_rtc_time.minute() * 60) + current_rtc_time.second();
+}

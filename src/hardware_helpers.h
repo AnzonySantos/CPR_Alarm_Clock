@@ -46,4 +46,7 @@ void stop_sound();
 void play_sound(uint8_t tone);
 //next_snooze_length()
 
+//Alarm functions
+int current_time_seconds();
+
 #endif //HARDWARE_HELPERS_H
