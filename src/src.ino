@@ -173,7 +173,8 @@ void loop() {
           y = y_max + y;
         }
       }
-
+    }
+  }
   /* 
   ALARM PORTION
   */
