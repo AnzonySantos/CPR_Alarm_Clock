@@ -10,6 +10,10 @@
 #include "initialization.h"
 #include "hardware_helpers.h"
 
+uint8_t global_clock_hours;
+uint8_t global_clock_minutes;
+uint8_t global_clock_seconds;
+
 // Hardware Iniitalization Objects
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(
   U8G2_R0,
@@ -22,8 +26,10 @@ Preferences prefs;
 
 bool debug_flag = 0; // If you want the serial monitor to be on so you can print debug statemnts, here you go 
 
+bool in_menu = false;
+
 /* Alarm Variables */
-AlarmSettings alarms[3];
+std::vector<AlarmSettings> alarms(3);
 unsigned long alarm_start_time = 0;
 bool buzzer_active = false;
 bool is_alarm = false;
@@ -43,7 +49,7 @@ void loop() {
   ALARM PORTION
   */
   for (int i = 0; i < alarms.size(); i++){
-    if(current_time_seconds() == alarms[i].toSeconds() && (rtc.now.dayOfTheWeek() == alarms[i].day || alarms[i].day == 7) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
+    if(current_time_seconds() == alarms[i].toSeconds() && (rtc.now().dayOfTheWeek() == alarms[i].day || alarms[i].day == 7) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
       alarm_start_time = millis(); // when the alarm started
       buzzer_active = true; // the alarm is sounding
       is_alarm = true;
@@ -59,20 +65,20 @@ void loop() {
     bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000);
 
     if(stop_alarm || duration_expired || snooze_alarm ) { // if button is pressed or duration has expired or snoozed
-      stop_audio(); // stop sound
+      stop_sound(); // stop sound
       buzzer_active = false;
       is_alarm = false;
-      stop_alarm_requested = false; // reset variable
+      stop_alarm = false; // reset variable
       // IF WE ARE SNOOZING
       if(snooze_alarm == true){
         snooze_alarm = false; // reset variable 
 
         //find the time the new snooze alarm should be set to (in seconds)
-        snooze_time_seconds_delay = current_time_seconds() + (snooze_delay*60);
+        long snooze_time_seconds_delay = (current_time_seconds() + (alarms[what_alarm].snooze_delay * 60)) % 86400;
 
-        snooze_time_hours = snooze_time_seconds_delay / 3600; 
-        snooze_time_minutes = (snooze_time_seconds_delay % 3600) / 60;
-        snooze_time_seconds = snooze_time_seconds_delay % 60;
+        long snooze_time_hours = snooze_time_seconds_delay / 3600; 
+        long snooze_time_minutes = (snooze_time_seconds_delay % 3600) / 60;
+        long snooze_time_seconds = snooze_time_seconds_delay % 60;
 
         AlarmSettings snooze_new_alarm;
         snooze_new_alarm.hours = snooze_time_hours;

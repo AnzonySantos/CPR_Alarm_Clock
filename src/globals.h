@@ -1,6 +1,7 @@
 // globals.h
 #pragma once
 #include <Arduino.h>
+#include <vector>
 
 // Alarm struct
 struct AlarmSettings {
@@ -35,9 +36,12 @@ struct AlarmSettings {
 /* 
 Alarm Variables
 */
-extern AlarmSettings alarms[3];
+extern std::vector<AlarmSettings> alarms;
 extern int selected_alarm;
-extern int buzzer_active;
+extern bool buzzer_active;
 extern int what_alarm;
 extern volatile bool stop_alarm;
 extern volatile bool snooze_alarm;
+
+// other variables 
+extern bool in_menu;
