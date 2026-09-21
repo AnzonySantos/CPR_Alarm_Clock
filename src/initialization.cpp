@@ -288,5 +288,5 @@ void button2_callback(){
     }
 }
 void button3_callback(){
-    return;
+    snooze_alarm = true;
 }
