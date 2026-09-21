@@ -270,7 +270,7 @@ void draw_alarm1_screen(int y){
     const String hours(settings.hours), minutes(settings.minutes), seconds(settings.second);
     const String daily = settings.day == 7 ? "On" : "Off";
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
-    const String snooze_length(settings.snooze_length);
+    const String snooze_length(settings.snooze_delay);
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
     const String delay_var(settings.snooze_delay), snooze_amount(settings.snooze_amount);

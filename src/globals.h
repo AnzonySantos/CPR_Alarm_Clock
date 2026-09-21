@@ -36,7 +36,7 @@ struct AlarmSettings {
   // Display text is derived; no separate editable day string.
 
   //5 -15 
-  int  snooze_delay  = 5;//snooze length 5 -15 increments of 1 
+  int  snooze_delay = 5;//snooze length 5 -15 increments of 1 
   bool snooze_delay_flag  = false;
   bool is_snooze = false; // is this alarm a temp snooze alarm
 
