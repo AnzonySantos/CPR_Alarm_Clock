@@ -6,6 +6,11 @@
 #include <RTClib.h>
 #include <ESP32Encoder.h>
 #include <Preferences.h>
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
+#include <Preferences.h>
+extern Preferences prefs; 
 
 // Alarm struct
 struct AlarmSettings {
@@ -98,3 +103,5 @@ extern int x_max;
 extern bool is_alarm;
 
 const char* alarm_day_text(int day);
+
+#endif
