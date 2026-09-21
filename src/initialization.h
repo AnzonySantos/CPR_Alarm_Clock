@@ -37,7 +37,7 @@ void initalization();
 void hardware_setup();
 void library_setup();
 void initalize_data();
-
+void backup_data();
 
 //Button ISR's Note: Rename and if you'd like they're just here as they are needed to compile
 void button1_callback();

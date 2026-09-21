@@ -138,12 +138,11 @@ void loop() {
   ALARM PORTION
   */
   for (int i = 0; i < alarms.size(); i++){
-    if(current_time_seconds() == alarms[i].toSeconds() && (alarms[i].day == 7 || (rtc.now().day() == alarms[i].month_day && rtc.now().month() == alarms[i].month)) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
+    if(current_time_seconds() == alarms[i].toSeconds() && (rtc.now().dayOfTheWeek() == alarms[i].day || alarms[i].day == 7 || (rtc.now().day() == alarms[i].month_day && rtc.now().month() == alarms[i].month)) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
       alarm_start_time = millis(); // when the alarm started
       buzzer_active = true; // the alarm is sounding
       is_alarm = true;
       in_menu = false;
-      play_sound(1);
       what_alarm = i; // track what alarm should be sounded
     }
   }
@@ -151,10 +150,10 @@ void loop() {
   if(buzzer_active) {
     // has the alarm reached its set duration yet
     unsigned long elapsed_ms = millis() - alarm_start_time;
-    bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000 * 60);
+    bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000);
 
     if(stop_alarm || duration_expired || snooze_alarm ) { // if button is pressed or duration has expired or snoozed
-      //stop_sound(); // stop sound
+      stop_sound(); // stop sound
       buzzer_active = false;
       is_alarm = false;
       stop_alarm = false; // reset variable
@@ -190,5 +189,5 @@ void loop() {
       play_sound(alarms[what_alarm].selected_sound);
     }
   }
-  backup_data()
+  backup_data();
 }
