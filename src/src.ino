@@ -83,14 +83,20 @@ void loop() {
     clock_sec = clock_sec % 60;
     count = 0;
   }
-  else if(x == 1 || x == 2 || x == 3){
-    y = count/2 % 10;
+  else if(x == 4 || x == 2 || x == 3){
+    y = count/2 % 12;
     if(y < 0){
       y = y_max + y;
     }
   }
-  else if(x == 4 || x == 0){
+  else if(x == 0){
     y = count/2 % 4;
+    if(y < 0){
+      y = y_max + y;
+    }
+  }
+  else if(x == 1){
+    y = count/2 % 7;
     if(y < 0){
       y = y_max + y;
     }

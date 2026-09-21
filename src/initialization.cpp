@@ -99,18 +99,10 @@ void button2_callback(){
         //display settings
             switch(y){
                 case 0:
-                    if(bright == "auto"){
-                        bright = "high";
-                    }
-                    else if(bright == "high"){
-                        bright = "med";
-                    }
-                    else if (bright == "med"){
-                        bright = "low";
-                    }
-                    else{
-                        bright = "auto";
-                    }
+                    if(bright == "auto"){ bright = "high"; }
+                    else if(bright == "high"){ bright = "med"; }
+                    else if (bright == "med"){ bright = "low"; }
+                    else{ bright = "auto"; }
                 return;
                 case 1:
                     dls_flag = !dls_flag;
@@ -127,9 +119,29 @@ void button2_callback(){
         return;
 
         case 1:
+        //clock settings
+            switch(y){
+                case 0:
+                clock_hour_flag = !clock_hour_flag;
+                return;
+                case 1:
+                clock_minute_flag = !clock_minute_flag;
+                return;
+                case 2:
+                clock_second_flag = !clock_second_flag;
+                return;
+                case 3:
+                back();
+                return;
+                default:
+                return;
+            }
+        return;
+
         case 2:
-        case 3: {
-            int alarm_index = x - 1;   // x=1 -> alarms[0], x=2 -> alarms[1], x=3 -> alarms[2]
+        case 3:
+        case 4: {
+            int alarm_index = x - 2;   // x=2 -> alarms[0], x=3 -> alarms[1], x=4 -> alarms[2]
             AlarmSettings &a = alarms[alarm_index];
             what_alarm = alarm_index;
 
@@ -159,7 +171,7 @@ void button2_callback(){
                     a.snooze_amount_flag = !a.snooze_amount_flag;
                 return;
                 case 8:
-                return;   // snooze_length placeholder — see note below
+                return;
                 case 9:
                     back();
                 return;
@@ -167,26 +179,6 @@ void button2_callback(){
                 return;
             }
         }
-        return;
-
-        case 4:
-        //clock settings
-            switch(y){
-                case 0:
-                clock_hour_flag = !clock_hour_flag;
-                return;
-                case 1:
-                clock_minute_flag = !clock_minute_flag;
-                return;
-                case 2:
-                clock_second_flag = !clock_second_flag;
-                return;
-                case 3:
-                back();
-                return;
-                default:
-                return;
-            }
         return;
 
         default:
