@@ -2,8 +2,14 @@
 #include "initialization.h"
 #include <navigation.h>
 #include "globals.h"
+#include <Preferences.h>
+
+Preferences prefs;
 
 void initalization(){
+    if (debug_flag) {
+        Serial.begin(9600);
+    }
     hardware_setup();
     library_setup();
     initalize_data();
@@ -34,17 +40,104 @@ void library_setup(){
     Wire.begin();
     u8g2.begin();
     rtc.begin();
-    prefs.begin("alarm_clock_state_variables", false);
-    
-    if (debug_flag){
-        Serial.begin(9600);
-    }
-    return;
 }
-void initalize_data(){
-    ///TODO: Ask group what should be stored in flash, and what the default values should be for all variables. Then intialize all
-    //state variables here.
-    return;
+
+void initalize_data() {
+    prefs.begin("alarm_clock", true);
+
+    bright = prefs.getString("bright", "auto");
+    dls_flag = prefs.getBool("dls", false);
+    mil_time_flag = prefs.getBool("mil_time", false);
+
+    global_clock_hours = prefs.getUChar("clk_hr", 0);
+    global_clock_mins = prefs.getUChar("clk_min", 0);
+    global_clock_sec = prefs.getUChar("clk_sec", 0);
+    global_clock_month = prefs.getUChar("clk_mth", 9);
+    global_clock_day = prefs.getUChar("clk_day", 20);
+    global_clock_year = prefs.getUShort("clk_yr", 2026);
+
+    alarms[0].toggle = prefs.getBool("alarm1toggle", false);
+    alarms[1].toggle = prefs.getBool("alarm2toggle", false);
+    alarms[2].toggle = prefs.getBool("alarm3toggle", false);
+
+    alarms[0].hour = prefs.getUChar("alm1_hr", 0);
+    alarms[0].minute = prefs.getUChar("alm1_min", 0);
+    alarms[0].second = prefs.getUChar("alm1_sec", 0);
+
+    alarms[1].hour = prefs.getUChar("alm2_hr", 0);
+    alarms[1].minute = prefs.getUChar("alm2_min", 0);
+    alarms[1].second = prefs.getUChar("alm2_sec", 0);
+
+    alarms[2].hour = prefs.getUChar("alm3_hr", 0);
+    alarms[2].minute = prefs.getUChar("alm3_min", 0);
+    alarms[2].second = prefs.getUChar("alm3_sec", 0);
+
+    alarms[0].sound = prefs.getUChar("alm1_snd", 1);
+    alarms[1].sound = prefs.getUChar("alm2_snd", 1);
+    alarms[2].sound = prefs.getUChar("alm3_snd", 1);
+
+    alarms[0].snooze_amount = prefs.getUChar("alm1_snam", 0);
+    alarms[1].snooze_amount = prefs.getUChar("alm2_snam", 0);
+    alarms[2].snooze_amount = prefs.getUChar("alm3_snam", 0);
+
+    alarms[0].snooze_delay = prefs.getUChar("alm1_sndl", 8);
+    alarms[1].snooze_delay = prefs.getUChar("alm2_sndl", 8);
+    alarms[2].snooze_delay = prefs.getUChar("alm3_sndl", 8);
+
+    alarms[0].snooze_length = prefs.getUChar("alm1_snln", 15);
+    alarms[1].snooze_length = prefs.getUChar("alm2_snln", 15);
+    alarms[2].snooze_length = prefs.getUChar("alm3_snln", 15);
+
+    prefs.end();
+}
+
+void backup_data() {
+    prefs.begin("alarm_clock", false);
+
+    prefs.putString("bright", bright);
+    prefs.putBool("dls", dls_flag);
+    prefs.putBool("mil_time", mil_time_flag);
+
+    prefs.putUChar("clk_hr", global_clock_hours);
+    prefs.putUChar("clk_min", global_clock_mins);
+    prefs.putUChar("clk_sec", global_clock_sec);
+    prefs.putUChar("clk_mth", global_clock_month);
+    prefs.putUChar("clk_day", global_clock_day);
+    prefs.putUShort("clk_yr", global_clock_year);
+
+    prefs.putBool("alarm1toggle", alarms[0].toggle);
+    prefs.putBool("alarm2toggle", alarms[1].toggle);
+    prefs.putBool("alarm3toggle", alarms[2].toggle);
+
+    prefs.putUChar("alm1_hr", alarms[0].hour);
+    prefs.putUChar("alm1_min", alarms[0].minute);
+    prefs.putUChar("alm1_sec", alarms[0].second);
+
+    prefs.putUChar("alm2_hr", alarms[1].hour);
+    prefs.putUChar("alm2_min", alarms[1].minute);
+    prefs.putUChar("alm2_sec", alarms[1].second);
+
+    prefs.putUChar("alm3_hr", alarms[2].hour);
+    prefs.putUChar("alm3_min", alarms[2].minute);
+    prefs.putUChar("alm3_sec", alarms[2].second);
+
+    prefs.putUChar("alm1_snd", alarms[0].sound);
+    prefs.putUChar("alm2_snd", alarms[1].sound);
+    prefs.putUChar("alm3_snd", alarms[2].sound);
+
+    prefs.putUChar("alm1_snam", alarms[0].snooze_amount);
+    prefs.putUChar("alm2_snam", alarms[1].snooze_amount);
+    prefs.putUChar("alm3_snam", alarms[2].snooze_amount);
+
+    prefs.putUChar("alm1_sndl", alarms[0].snooze_delay);
+    prefs.putUChar("alm2_sndl", alarms[1].snooze_delay);
+    prefs.putUChar("alm3_sndl", alarms[2].snooze_delay);
+
+    prefs.putUChar("alm1_snln", alarms[0].snooze_length);
+    prefs.putUChar("alm2_snln", alarms[1].snooze_length);
+    prefs.putUChar("alm3_snln", alarms[2].snooze_length);
+
+    prefs.end();
 }
 
 //Note to self: Button ISR's. Rename if you'd like they're just here as they are needed to compile. If issues arise when removing or renaming them
