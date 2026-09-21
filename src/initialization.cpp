@@ -2,9 +2,7 @@
 #include "initialization.h"
 #include <navigation.h>
 #include "globals.h"
-#include <Preferences.h>
 
-Preferences prefs;
 
 void initalization(){
     if (debug_flag) {
@@ -50,8 +48,8 @@ void initalize_data() {
     mil_time_flag = prefs.getBool("mil_time", false);
 
     global_clock_hours = prefs.getUChar("clk_hr", 0);
-    global_clock_mins = prefs.getUChar("clk_min", 0);
-    global_clock_sec = prefs.getUChar("clk_sec", 0);
+    global_clock_minutes = prefs.getUChar("clk_min", 0);
+    global_clock_seconds = prefs.getUChar("clk_sec", 0);
     global_clock_month = prefs.getUChar("clk_mth", 9);
     global_clock_day = prefs.getUChar("clk_day", 20);
     global_clock_year = prefs.getUShort("clk_yr", 2026);
@@ -60,21 +58,21 @@ void initalize_data() {
     alarms[1].toggle = prefs.getBool("alarm2toggle", false);
     alarms[2].toggle = prefs.getBool("alarm3toggle", false);
 
-    alarms[0].hour = prefs.getUChar("alm1_hr", 0);
-    alarms[0].minute = prefs.getUChar("alm1_min", 0);
+    alarms[0].hours = prefs.getUChar("alm1_hr", 0);
+    alarms[0].minutes = prefs.getUChar("alm1_min", 0);
     alarms[0].second = prefs.getUChar("alm1_sec", 0);
 
-    alarms[1].hour = prefs.getUChar("alm2_hr", 0);
-    alarms[1].minute = prefs.getUChar("alm2_min", 0);
+    alarms[1].hours = prefs.getUChar("alm2_hr", 0);
+    alarms[1].minutes = prefs.getUChar("alm2_min", 0);
     alarms[1].second = prefs.getUChar("alm2_sec", 0);
 
-    alarms[2].hour = prefs.getUChar("alm3_hr", 0);
-    alarms[2].minute = prefs.getUChar("alm3_min", 0);
+    alarms[2].hours = prefs.getUChar("alm3_hr", 0);
+    alarms[2].minutes = prefs.getUChar("alm3_min", 0);
     alarms[2].second = prefs.getUChar("alm3_sec", 0);
 
-    alarms[0].sound = prefs.getUChar("alm1_snd", 1);
-    alarms[1].sound = prefs.getUChar("alm2_snd", 1);
-    alarms[2].sound = prefs.getUChar("alm3_snd", 1);
+    alarms[0].selected_sound = prefs.getUChar("alm1_snd", 1);
+    alarms[1].selected_sound = prefs.getUChar("alm2_snd", 1);
+    alarms[2].selected_sound = prefs.getUChar("alm3_snd", 1);
 
     alarms[0].snooze_amount = prefs.getUChar("alm1_snam", 0);
     alarms[1].snooze_amount = prefs.getUChar("alm2_snam", 0);
@@ -99,8 +97,8 @@ void backup_data() {
     prefs.putBool("mil_time", mil_time_flag);
 
     prefs.putUChar("clk_hr", global_clock_hours);
-    prefs.putUChar("clk_min", global_clock_mins);
-    prefs.putUChar("clk_sec", global_clock_sec);
+    prefs.putUChar("clk_min", global_clock_minutes);
+    prefs.putUChar("clk_sec", global_clock_seconds);
     prefs.putUChar("clk_mth", global_clock_month);
     prefs.putUChar("clk_day", global_clock_day);
     prefs.putUShort("clk_yr", global_clock_year);
@@ -109,21 +107,21 @@ void backup_data() {
     prefs.putBool("alarm2toggle", alarms[1].toggle);
     prefs.putBool("alarm3toggle", alarms[2].toggle);
 
-    prefs.putUChar("alm1_hr", alarms[0].hour);
-    prefs.putUChar("alm1_min", alarms[0].minute);
+    prefs.putUChar("alm1_hr", alarms[0].hours);
+    prefs.putUChar("alm1_min", alarms[0].minutes);
     prefs.putUChar("alm1_sec", alarms[0].second);
 
-    prefs.putUChar("alm2_hr", alarms[1].hour);
-    prefs.putUChar("alm2_min", alarms[1].minute);
+    prefs.putUChar("alm2_hr", alarms[1].hours);
+    prefs.putUChar("alm2_min", alarms[1].minutes);
     prefs.putUChar("alm2_sec", alarms[1].second);
 
-    prefs.putUChar("alm3_hr", alarms[2].hour);
-    prefs.putUChar("alm3_min", alarms[2].minute);
+    prefs.putUChar("alm3_hr", alarms[2].hours);
+    prefs.putUChar("alm3_min", alarms[2].minutes);
     prefs.putUChar("alm3_sec", alarms[2].second);
 
-    prefs.putUChar("alm1_snd", alarms[0].sound);
-    prefs.putUChar("alm2_snd", alarms[1].sound);
-    prefs.putUChar("alm3_snd", alarms[2].sound);
+    prefs.putUChar("alm1_snd", alarms[0].selected_sound);
+    prefs.putUChar("alm2_snd", alarms[1].selected_sound);
+    prefs.putUChar("alm3_snd", alarms[2].selected_sound);
 
     prefs.putUChar("alm1_snam", alarms[0].snooze_amount);
     prefs.putUChar("alm2_snam", alarms[1].snooze_amount);
