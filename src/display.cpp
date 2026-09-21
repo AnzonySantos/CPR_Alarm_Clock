@@ -77,14 +77,21 @@ void render_screen(int x, int y, bool in_menu){
 }
 
 
+
 void draw_home_screen(){
-    // Formatting only: RTC snapshot acquisition remains with hardware_helpers.
     char date_str[24];
     char time_str[24];
+    
+    const char* am_pm_str = (global_clock_hours >= 12) ? "PM" : "AM";
+    uint8_t hours_12 = global_clock_hours % 12;
+    if (hours_12 == 0) {
+        hours_12 = 12;
+    }
+
     snprintf(date_str, sizeof(date_str), "%02d/%02d/%04d",
              global_clock_month, global_clock_day, global_clock_year);
     snprintf(time_str, sizeof(time_str), "%02d:%02d:%02d",
-             global_clock_hours, global_clock_minutes, global_clock_seconds);
+             hours_12, global_clock_minutes, global_clock_seconds);
     const char* day_str = alarm_day_text(global_clock_weekday);
 
     u8g2.setFont(u8g2_font_6x12_tr);
@@ -93,15 +100,27 @@ void draw_home_screen(){
     u8g2.drawStr(128 - day_width, 10, day_str);
 
     u8g2.setFont(u8g2_font_logisoso16_tf);
+    
     uint16_t time_width = u8g2.getStrWidth(time_str);
-    uint16_t time_x = (128 - time_width) / 2;
-    u8g2.drawStr(time_x, 42, time_str);
+    
+    u8g2.setFont(u8g2_font_6x12_tr);
+    uint16_t am_pm_width = u8g2.getStrWidth(am_pm_str);
+    
+    uint8_t gap = 3;
+    uint16_t total_block_width = time_width + gap + am_pm_width;
+    uint16_t start_x = (128 - total_block_width) / 2;
+
+    u8g2.setFont(u8g2_font_logisoso16_tf);
+    u8g2.drawStr(start_x, 42, time_str);
+
+    u8g2.setFont(u8g2_font_6x12_tr);
+    u8g2.drawStr(start_x + time_width + gap, 42, am_pm_str);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(0, 63, "< Snooze");
     const char* menu_label = "Menu >";
     uint16_t menu_width = u8g2.getStrWidth(menu_label);
-    u8g2.drawStr(128 - menu_width, 63, menu_label);
+    u8g2.drawStr(128 - menu_width, 63, menu_label);    
     u8g2.sendBuffer();
 }
 
