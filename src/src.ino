@@ -142,7 +142,23 @@ void loop() {
       alarm_start_time = millis(); // when the alarm started
       buzzer_active = true; // the alarm is sounding
       is_alarm = true;
-      in_menu = false;
+      in_menu = !in_menu;
+      count = 0;
+      x = 0;
+      y = 0;
+      x_level = true;
+      y_level = false;
+    for(int i = 0; i < 3; i++){
+        alarms[i].hours_flag = false;
+        alarms[i].minutes_flag = false;
+        alarms[i].secs_flag = false;
+        alarms[i].day_flag = false;
+        alarms[i].month_flag = false;
+        alarms[i].snooze_delay_flag = false;
+        alarms[i].number_of_snoozes_flag = false; 
+
+
+    }
       play_sound(1);
       what_alarm = i; // track what alarm should be sounded
     }
