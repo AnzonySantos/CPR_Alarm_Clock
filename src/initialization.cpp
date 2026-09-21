@@ -58,6 +58,17 @@ void button1_callback(){
     y = 0;
     x_level = true;
     y_level = false;
+    for(int i = 0; i < 3; i++){
+        alarms[i].hours_flag = false;
+        alarms[i].minutes_flag = false;
+        alarms[i].secs_flag = false;
+        alarms[i].day_flag = false;
+        alarms[i].month_flag = false;
+        alarms[i].snooze_delay_flag = false;
+        alarms[i].number_of_snoozes_flag = false; 
+
+
+    }
 }
 //select button
 void back(){//back helps with navigation
@@ -66,22 +77,7 @@ void back(){//back helps with navigation
     x_level = true;
     y_level = false;
 }
-String next_day(String day){ //helps with navigation
-    if (day == "Every")return "Mon";
-    if (day == "Mon")return "Tue";
-    if (day == "Tue")return "Wed";
-    if (day == "Wed")return "Thu";
-    if (day == "Thu")return "Fri";
-    if (day == "Fri")return "Sat";
-    if (day == "Sat")return "Sun";
-    if (day == "Sun")return "Every";
-}
-int next_snooze_length(int length){ //helps with navigation
-    if (length == 0) return 15;
-    if (length == 15) return 30;
-    if (length == 30) return 60;
-    if (length == 60) return 0;
-}
+
 void button2_callback(){
     count = 0;
     encoder.clearCount();
@@ -92,9 +88,8 @@ void button2_callback(){
         x_level = false;
         y_level = true;
     }
-    if (!y_level){
-        return;
-    }
+    else{
+
     switch(x){
         case 0:
         //display settings
@@ -159,31 +154,47 @@ void button2_callback(){
                 case 3:
                     a.secs_flag = !a.secs_flag;
                 return;
-                case 4:
-                    a.selected_sound = (a.selected_sound + 1) % 3;
+                case 4://this is now daily 
+                    if(a.day = 7)a.day = 6;
+                    else a.day = 7;
                 return;
-                case 5:
+                case 5://day
+                    a.day_flag = !a.day_flag;
+                return;
+                case 6://month
+                    a.month_flag = !a.month_flag;
+                return;
+                case 7://sound //snooze length changes delay
+                    if(a.selected_sound == 1)a.selected_sound = 2;
+                    if(a.selected_sound == 2) a.selected_sound = 3;
+                    else a.selected_sound = 1;
+                return;
+                case 8://snooze length 5 -15 increments of 1 
                     a.snooze_delay_flag = !a.snooze_delay_flag;
                 return;
-                case 6:
-                    a.day = (a.day + 1) % 8;
+                case 9://snooze:--
+                    return;
+                case 12://Ddely
+                    if(a.alarm_durration_seconds == 15) a.alarm_durration_seconds = 30;
+                    else if(a.alarm_durration_seconds == 30) a.alarm_durration_seconds = 60;
+                    else if(a.alarm_durration_seconds == 60) a.alarm_durration_seconds = 180;
+                    else a.alarm_durration_seconds = 15;
                 return;
-                case 7:
-                    a.snooze_amount_flag = !a.snooze_amount_flag;
-                return;
-                case 8:
-                return;
-                case 9:
+                case 13:
+                    a.number_of_snoozes_flag = !a.number_of_snoozes_flag;//number of snoozes 0-10 integer
+                    return;
+                case 14:
                     back();
-                return;
                 default:
-                return;
+                    return;
+                //back
             }
         }
         return;
 
         default:
         return;
+    }
     }
 }
 void button3_callback(){

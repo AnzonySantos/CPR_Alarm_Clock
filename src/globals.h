@@ -15,9 +15,11 @@ struct AlarmSettings {
   int minutes = 0;
   int second  = 0;
 
-  int day = 0;
+  int day = 7;
   int month_day = 0;
+  bool day_flag = false;
   int month = 0;
+  bool month_flag = false;
 
   bool hours_flag   = false;
   bool minutes_flag = false;
@@ -28,15 +30,16 @@ struct AlarmSettings {
   // day is authoritative: 0=Sunday through 6=Saturday, 7=Every.
   // Display text is derived; no separate editable day string.
 
-  int  snooze_delay  = 5;
-  int  snooze_amount = 5;
+  //5 -15 
+  int  snooze_delay  = 5;//snooze length 5 -15 increments of 1 
   bool snooze_delay_flag  = false;
-  bool snooze_amount_flag = false;
   bool is_snooze = false; // is this alarm a temp snooze alarm
 
+  int snooze_amount = 0;//number of snoozes 0-10 integer
+  bool number_of_snoozes_flag = false;
   // Legacy navigation value; intentionally NOT mapped to sounding duration yet.
   int snooze_length = 0;
-  int alarm_durration_seconds = 10;
+  int alarm_durration_seconds = 15;//15, 30, 60, 180
 
   //convert alarm time to seconds
   int toSeconds() const {

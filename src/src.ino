@@ -57,7 +57,7 @@ void loop() {
     count = 0;
     encoder.clearCount();
   }
-  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_delay_flag){
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_delay_flag){//0-15
     alarms[what_alarm].snooze_delay += count/2;
     if(alarms[what_alarm].snooze_delay > 15){
       alarms[what_alarm].snooze_delay = 5;
@@ -65,10 +65,26 @@ void loop() {
     count = 0;
     encoder.clearCount();
   }
-  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_amount_flag){
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].number_of_snoozes_flag){//0-10
     alarms[what_alarm].snooze_amount += count/2;
     if(alarms[what_alarm].snooze_amount > 10){
       alarms[what_alarm].snooze_amount = 0;
+    }
+    count = 0;
+    encoder.clearCount();
+  }
+    else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].day_flag){//1-31
+    alarms[what_alarm].month_day += count/2;
+    if(alarms[what_alarm].month_day > 31){
+      alarms[what_alarm].month_day = 1;
+    }
+    count = 0;
+    encoder.clearCount();
+  }
+  else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].month_flag){//1-12
+    alarms[what_alarm].month += count/2;
+    if(alarms[what_alarm].month > 12){
+      alarms[what_alarm].month = 1;
     }
     count = 0;
     encoder.clearCount();
@@ -122,7 +138,7 @@ void loop() {
   ALARM PORTION
   */
   for (int i = 0; i < alarms.size(); i++){
-    if(current_time_seconds() == alarms[i].toSeconds() && (rtc.now().dayOfTheWeek() == alarms[i].day || alarms[i].day == 7 || (rtc.now().day() == alarms[i].month_day && rtc.now().month() == alarms[i].month)) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
+    if(current_time_seconds() == alarms[i].toSeconds() && (alarms[i].day == 7 || (rtc.now().day() == alarms[i].month_day && rtc.now().month() == alarms[i].month)) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
       alarm_start_time = millis(); // when the alarm started
       buzzer_active = true; // the alarm is sounding
       is_alarm = true;
@@ -135,7 +151,7 @@ void loop() {
   if(buzzer_active) {
     // has the alarm reached its set duration yet
     unsigned long elapsed_ms = millis() - alarm_start_time;
-    bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000);
+    bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000 * 60);
 
     if(stop_alarm || duration_expired || snooze_alarm ) { // if button is pressed or duration has expired or snoozed
       stop_sound(); // stop sound
