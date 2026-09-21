@@ -21,7 +21,7 @@
 #define ROT_ENC_B_PIN           7
 
 ///Audio
-#define PLACE_HOLDER_FREQUENCY  0
+#define PLACE_HOLDER_FREQUENCY  1000
 #define PWM_RESOLUTION          8
 
 

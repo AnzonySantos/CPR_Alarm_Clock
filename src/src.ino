@@ -143,8 +143,8 @@ void loop() {
       buzzer_active = true; // the alarm is sounding
       is_alarm = true;
       in_menu = false;
+      play_sound(1);
       what_alarm = i; // track what alarm should be sounded
-      break;
     }
   }
   //DURATION CHECK
@@ -154,7 +154,7 @@ void loop() {
     bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000 * 60);
 
     if(stop_alarm || duration_expired || snooze_alarm ) { // if button is pressed or duration has expired or snoozed
-      stop_sound(); // stop sound
+      //stop_sound(); // stop sound
       buzzer_active = false;
       is_alarm = false;
       stop_alarm = false; // reset variable

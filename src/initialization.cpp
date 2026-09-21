@@ -246,7 +246,7 @@ void button2_callback(){
                     a.secs_flag = !a.secs_flag;
                 return;
                 case 4://this is now daily 
-                    if(a.day = 7)a.day = 6;
+                    if(a.day == 7)a.day = 6;
                     else a.day = 7;
                 return;
                 case 5://day
@@ -256,26 +256,25 @@ void button2_callback(){
                     a.month_flag = !a.month_flag;
                 return;
                 case 7://sound //snooze length changes delay
-                    if(a.selected_sound == 1)a.selected_sound = 2;
-                    if(a.selected_sound == 2) a.selected_sound = 3;
-                    else a.selected_sound = 1;
+                    a.selected_sound = (a.selected_sound % 3) + 1;
                 return;
                 case 8://snooze length 5 -15 increments of 1 
                     a.snooze_delay_flag = !a.snooze_delay_flag;
                 return;
                 case 9://snooze:--
                     return;
-                case 12://Ddely
+                case 10://Ddely
                     if(a.alarm_durration_seconds == 15) a.alarm_durration_seconds = 30;
                     else if(a.alarm_durration_seconds == 30) a.alarm_durration_seconds = 60;
                     else if(a.alarm_durration_seconds == 60) a.alarm_durration_seconds = 180;
                     else a.alarm_durration_seconds = 15;
                 return;
-                case 13:
+                case 11:
                     a.number_of_snoozes_flag = !a.number_of_snoozes_flag;//number of snoozes 0-10 integer
                     return;
-                case 14:
+                case 12:
                     back();
+                    return;
                 default:
                     return;
                 //back
