@@ -43,16 +43,19 @@ void loop() {
     alarms[what_alarm].hours += count/2;
     alarms[what_alarm].hours = alarms[what_alarm].hours % 24;
     count = 0;
+    encoder.clearCount();
   }
   else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].minutes_flag){
     alarms[what_alarm].minutes += count/2;
     alarms[what_alarm].minutes = alarms[what_alarm].minutes % 60;
     count = 0;
+    encoder.clearCount();
   }
   else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].secs_flag){
     alarms[what_alarm].second += count/2;
     alarms[what_alarm].second = alarms[what_alarm].second % 60;
     count = 0;
+    encoder.clearCount();
   }
   else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_delay_flag){
     alarms[what_alarm].snooze_delay += count/2;
@@ -60,6 +63,7 @@ void loop() {
       alarms[what_alarm].snooze_delay = 5;
     }
     count = 0;
+    encoder.clearCount();
   }
   else if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].snooze_amount_flag){
     alarms[what_alarm].snooze_amount += count/2;
@@ -67,39 +71,49 @@ void loop() {
       alarms[what_alarm].snooze_amount = 0;
     }
     count = 0;
+    encoder.clearCount();
   }
   else if(clock_hour_flag){
     clock_hours += count/2;
     clock_hours = clock_hours % 24;
     count = 0;
+    encoder.clearCount();
   }
   else if(clock_minute_flag){
     clock_mins += count/2;
     clock_mins = clock_mins % 60;
     count = 0;
+    encoder.clearCount();
   }
   else if(clock_second_flag){
     clock_sec += count/2;
     clock_sec = clock_sec % 60;
     count = 0;
+    encoder.clearCount();
   }
   else if(x == 4 || x == 2 || x == 3){
-    y = count/2 % 12;
+    y += count/2 % 12;
     if(y < 0){
       y = y_max + y;
     }
+    count = 0;
+    encoder.clearCount();
   }
   else if(x == 0){
-    y = count/2 % 4;
+    y += count/2 % 4;
     if(y < 0){
       y = y_max + y;
     }
+    count = 0;
+    encoder.clearCount();
   }
   else if(x == 1){
-    y = count/2 % 7;
+    y += count/2 % 7;
     if(y < 0){
       y = y_max + y;
     }
+    count = 0;
+    encoder.clearCount();
   }
     }
   }

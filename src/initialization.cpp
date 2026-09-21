@@ -84,6 +84,7 @@ int next_snooze_length(int length){ //helps with navigation
 }
 void button2_callback(){
     count = 0;
+    encoder.clearCount();
     if (!in_menu){
         return;
     }
