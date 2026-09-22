@@ -25,7 +25,7 @@ void hardware_setup(){
 
     //Encoder Initalization
     ESP32Encoder::useInternalWeakPullResistors = puType::up;
-    encoder.attachHalfQuad(ROT_ENC_A_PIN, ROT_ENC_B_PIN);
+    encoder.attachFullQuad(ROT_ENC_A_PIN, ROT_ENC_B_PIN);
     encoder.clearCount();
 
     //Interrupt Declarations
