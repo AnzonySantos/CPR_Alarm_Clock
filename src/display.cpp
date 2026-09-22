@@ -260,7 +260,7 @@ void draw_alarm1_screen(int y){
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
     const String snooze_length(settings.snooze_delay);
     const String snooze = "Enabled";
-    const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String delay_var(settings.alarm_durration_seconds == 6000 ? 0 : settings.alarm_durration_seconds);
     const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
@@ -355,7 +355,7 @@ void draw_alarm2_screen(int y){
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
     const String snooze_length(settings.snooze_delay);
     const String snooze = "Enabled";
-    const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String delay_var(settings.alarm_durration_seconds == 6000 ? 0 : settings.alarm_durration_seconds);
     const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
@@ -451,7 +451,7 @@ void draw_alarm3_screen(int y){
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
     const String snooze_length(settings.snooze_delay);
     const String snooze = "Enabled";
-    const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String delay_var(settings.alarm_durration_seconds == 6000 ? 0 : settings.alarm_durration_seconds);
     const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
