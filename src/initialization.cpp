@@ -163,8 +163,6 @@ void button1_callback(){
         alarms[i].month_flag = false;
         alarms[i].snooze_delay_flag = false;
         alarms[i].number_of_snoozes_flag = false; 
-
-
     }
 }
 //select button
