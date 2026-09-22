@@ -270,8 +270,7 @@ void draw_alarm1_screen(int y){
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
     const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
-
-const String snooze_amount(settings.snooze_amount);
+    const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(2, 12, "Alarm 1 Settings");
@@ -367,6 +366,7 @@ void draw_alarm2_screen(int y){
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
     const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(2, 12, "Alarm 2 Settings");
@@ -463,6 +463,7 @@ void draw_alarm3_screen(int y){
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
     const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(2, 12, "Alarm 3 Settings");
