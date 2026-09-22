@@ -227,7 +227,7 @@ void loop() {
       // IF WE ARE SNOOZING
       if(snooze_alarm == true){
         snooze_alarm = false; // reset variable 
-        current_alarm_snooze_count--; // decrement the snooze count
+        if(current_alarm_snooze_count != -1) current_alarm_snooze_count--; // decrement the snooze count
         if(current_alarm_snooze_count != 0){
         //find the time the new snooze alarm should be set to (in seconds)
         long snooze_time_seconds_delay = (current_time_seconds() + (alarms[what_alarm].snooze_delay * 60)) % 86400;
