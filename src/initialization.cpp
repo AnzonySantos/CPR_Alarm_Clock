@@ -204,6 +204,16 @@ void button2_callback(){
                 return;
                 case 1:
                     dls_flag = !dls_flag;
+                    if(dls_flag){
+                        global_clock_hours += 1;
+                        global_clock_hours = global_clock_hours % 24;
+                        set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
+                    }
+                    else if(!dls_flag){
+                        global_clock_hours -= 1;
+                        global_clock_hours = global_clock_hours % 24;
+                        set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);                       
+                    }
                 return;
                 case 2:
                     mil_time_flag = !mil_time_flag;
