@@ -1,6 +1,3 @@
-//Note: This is the entry point to the application, I would have called it something normal like main.ino,
-// but the geniuses behind the Arduino IDE require the folder and the entry point name to be the same.
-
 #include <Wire.h>
 #include <U8g2lib.h>
 #include <RTClib.h>
@@ -11,7 +8,6 @@
 #include "hardware_helpers.h"
 #include "globals.h"
 #include "display.h"
-
 
 /* Nav Variables */
 int y_max = 9;
@@ -27,7 +23,6 @@ const unsigned long interval = 500; // 500 ms = .5 second
 /* Ran once on setup */
 void setup() {
   initalization();
-
 }
 
 /* Main Loop */
