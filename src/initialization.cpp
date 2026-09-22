@@ -143,6 +143,12 @@ void backup_data() {
 //arise make sure they are linked by including the apropriate header file.
 //menu button
 void button1_callback(){
+    unsigned long now = millis();
+    if (now - last_button1_pressed_time < DEBOUNCE_DELAY_MS){
+        return;
+    }
+    last_button1_pressed_time = now;
+
     in_menu = !in_menu;
     count = 0;
     x = 0;
@@ -170,6 +176,12 @@ void back(){//back helps with navigation
 }
 
 void button2_callback(){
+    unsigned long now = millis();
+    if (now - last_button2_pressed_time < DEBOUNCE_DELAY_MS){
+        return;
+    }
+    last_button2_pressed_time = now;
+
     count = 0;
     encoder.clearCount();
     if (!in_menu){
@@ -288,5 +300,11 @@ void button2_callback(){
     }
 }
 void button3_callback(){
+    unsigned long now = millis();
+    if (now - last_button3_pressed_time < DEBOUNCE_DELAY_MS){
+        return;
+    }
+    last_button3_pressed_time = now;
+
     snooze_alarm = true;
 }

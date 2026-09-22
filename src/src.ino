@@ -90,20 +90,20 @@ void loop() {
     encoder.clearCount();
   }
   else if(clock_hour_flag){
-    clock_hours += count/2;
-    clock_hours = clock_hours % 24;
+    global_clock_hours += count/2;
+    global_clock_hours = global_clock_hours % 24;
     count = 0;
     encoder.clearCount();
   }
   else if(clock_minute_flag){
-    clock_mins += count/2;
-    clock_mins = clock_mins % 60;
+    global_clock_minutes += count/2;
+    global_clock_minutes = global_clock_minutes % 60;
     count = 0;
     encoder.clearCount();
   }
   else if(clock_second_flag){
-    clock_sec += count/2;
-    clock_sec = clock_sec % 60;
+    global_clock_seconds += count/2;
+    global_clock_seconds = global_clock_seconds % 60;
     count = 0;
     encoder.clearCount();
   }
@@ -200,6 +200,7 @@ void loop() {
         snooze_new_alarm.toggle = true;
         snooze_new_alarm.snooze_amount = current_alarm_snooze_count - 1;
         snooze_new_alarm.is_snooze = true; // indicating this is a snooze alarm
+        snooze_new_alarm.snooze_delay = alarms[what_alarm].snooze_delay;
         snooze_new_alarm.selected_sound = alarms[what_alarm].selected_sound;
 
         alarms.push_back(snooze_new_alarm);

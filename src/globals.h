@@ -92,16 +92,19 @@ extern bool clock_minute_flag;
 extern bool clock_second_flag;
 
 extern int y_max;
+/*
 extern uint8_t clock_hours;
 extern uint8_t clock_mins;
 extern uint8_t clock_sec;
-extern bool clock_hour_flag;
-extern bool clock_minute_flag;
-extern bool clock_second_flag;
+*/
+
 
 extern int x_max;
 extern bool is_alarm;
 extern int current_alarm_snooze_count;
 const char* alarm_day_text(int day);
 
+extern unsigned long last_button1_pressed_time;
+extern unsigned long last_button2_pressed_time;
+extern unsigned long last_button3_pressed_time;
 #endif
