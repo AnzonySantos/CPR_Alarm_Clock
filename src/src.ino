@@ -34,6 +34,10 @@ void setup() {
 void loop() {
   update_display(x, y, in_menu);
   count = encoder.getCount();
+  if(clock_dst_needs_updated){
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
+    clock_dst_needs_updated = false;
+  }
   if(in_menu){
     if(x_level){
       x += count/2;

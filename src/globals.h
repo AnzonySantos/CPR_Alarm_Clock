@@ -94,7 +94,7 @@ extern bool clock_day_flag;
 extern bool clock_month_flag;
 extern bool clock_year_flag;
 
-
+extern bool clock_dst_needs_updated;
 extern bool is_inverted;
 
 extern int y_max;

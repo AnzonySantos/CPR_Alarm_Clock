@@ -13,7 +13,7 @@ int what_alarm = -1;
 volatile bool stop_alarm = false;
 volatile bool snooze_alarm = false;
 bool is_alarm = false;
-
+bool clock_dst_needs_updated = false;
 bool is_inverted = false;
 bool in_menu = false;
 int x = 0;
