@@ -24,7 +24,7 @@
 #define PLACE_HOLDER_FREQUENCY  1000
 #define PWM_RESOLUTION          8
 
-#define  DEBOUNCE_DELAY_MS      180
+#define  DEBOUNCE_DELAY_MS      250
 
 
 //Hardware Objects. We may just want to move the initialization and their declaration here.

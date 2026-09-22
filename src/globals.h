@@ -92,12 +92,12 @@ extern bool clock_minute_flag;
 extern bool clock_second_flag;
 
 extern int y_max;
+/*
 extern uint8_t clock_hours;
 extern uint8_t clock_mins;
 extern uint8_t clock_sec;
-extern bool clock_hour_flag;
-extern bool clock_minute_flag;
-extern bool clock_second_flag;
+*/
+
 
 extern int x_max;
 extern bool is_alarm;

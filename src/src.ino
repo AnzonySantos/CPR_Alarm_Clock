@@ -90,20 +90,20 @@ void loop() {
     encoder.clearCount();
   }
   else if(clock_hour_flag){
-    clock_hours += count/2;
-    clock_hours = clock_hours % 24;
+    global_clock_hours += count/2;
+    global_clock_hours = global_clock_hours % 24;
     count = 0;
     encoder.clearCount();
   }
   else if(clock_minute_flag){
-    clock_mins += count/2;
-    clock_mins = clock_mins % 60;
+    global_clock_minutes += count/2;
+    global_clock_minutes = global_clock_minutes % 60;
     count = 0;
     encoder.clearCount();
   }
   else if(clock_second_flag){
-    clock_sec += count/2;
-    clock_sec = clock_sec % 60;
+    global_clock_seconds += count/2;
+    global_clock_seconds = global_clock_seconds % 60;
     count = 0;
     encoder.clearCount();
   }
