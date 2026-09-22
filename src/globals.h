@@ -78,7 +78,7 @@ extern String bright;
 extern bool dls_flag;
 extern bool mil_time_flag;
 // Sensor acquisition remains for the integration pass; default is deterministic.
-extern uint16_t raw_brightness_value;
+// extern uint16_t raw_brightness_value;
 
 extern uint8_t global_clock_hours;
 extern uint8_t global_clock_minutes;

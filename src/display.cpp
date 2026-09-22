@@ -12,6 +12,7 @@ void update_display(int x, int y, bool in_menu){
 
 void check_brightness(){
     // raw_brightness_value is the shared sensor input; acquisition is deferred.
+    uint16_t raw_brightness_value = analogRead(BRIGHTNESS_PIN);
     if (bright == "auto"){
         if (raw_brightness_value >= 2854 && raw_brightness_value <= 4095){
            u8g2.setContrast(HIGH_BRIGHTNESS_LEVEL); 
