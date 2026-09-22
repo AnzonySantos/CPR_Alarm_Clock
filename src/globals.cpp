@@ -23,7 +23,12 @@ bool y_level = false;
 String bright = "auto";
 bool dls_flag = false;
 bool mil_time_flag = false;
+
 // uint16_t raw_brightness_value = 0;
+
+
+uint16_t raw_brightness_value = 0;
+int current_alarm_snooze_count = 0;
 
 
 uint8_t global_clock_hours = 0;

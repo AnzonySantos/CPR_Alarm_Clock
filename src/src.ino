@@ -143,10 +143,10 @@ void loop() {
       buzzer_active = true; // the alarm is sounding
       if(alarms[i].is_snooze == false){ // if this is not a snooze alarm, set the current_alarm_snooze_count to the number of snoozes for this alarm
         if(alarms[i].snooze_amount == 0){
-          current_alarm_snooze_count = -1
+          current_alarm_snooze_count = -1;
         }
         else{
-          current_alarm_snooze_count = alarms[i].snooze_amount;
+          current_alarm_snooze_count = (alarms[i].snooze_amount + 1);
         }
       }
       is_alarm = true;
@@ -198,7 +198,6 @@ void loop() {
         snooze_new_alarm.minutes = snooze_time_minutes;
         snooze_new_alarm.second = snooze_time_seconds;
         snooze_new_alarm.toggle = true;
-        snooze_new_alarm.snooze_amount = current_alarm_snooze_count - 1;
         snooze_new_alarm.is_snooze = true; // indicating this is a snooze alarm
         snooze_new_alarm.snooze_delay = alarms[what_alarm].snooze_delay;
         snooze_new_alarm.selected_sound = alarms[what_alarm].selected_sound;
