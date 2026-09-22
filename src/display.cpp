@@ -14,10 +14,6 @@ void update_display(int x, int y, bool in_menu){
 void check_brightness() {
     uint16_t raw_brightness_value = analogRead(BRIGHTNESS_PIN);
 
-    // Uncomment during testing:
-    // Serial.print("Brightness ADC: ");
-    // Serial.println(raw_brightness_value);
-
     if (bright == "auto") {
         if (raw_brightness_value < 1100) {
             // Bright room: make the OLED easier to see
@@ -49,13 +45,11 @@ void render_screen(int x, int y, bool in_menu){
         draw_home_screen();
     }
     else{
-        if (x_level){///Sential value could be changed if desired
-            ///Could be made less verbose at this point im not sure if the "x's" are capped in between these numbers
-            ///or not so this is a simple but kind ugly way to make sure only values 0-4 are displayed
+        if (x_level){
             draw_options_screen(x);
         }
         else {
-            switch(x){//For this to work as i envision the rotary coder must not be able to set the y value to something less than 0 
+            switch(x){
                 case 0:
                     draw_display_settings_screen(y);
                 break;
@@ -265,8 +259,7 @@ void draw_alarm1_screen(int y){
     const String daily = settings.day == 7 ? "On" : "Off";
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
     const String snooze_length(settings.snooze_delay);
-    // The existing Snooze row has no defined setting; preserve it as a placeholder.
-    const String snooze = "--";
+    const String snooze = "Enabled";
     const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
     const String snooze_amount(settings.snooze_amount);
 
@@ -361,8 +354,7 @@ void draw_alarm2_screen(int y){
     const String daily = settings.day == 7 ? "On" : "Off";
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
     const String snooze_length(settings.snooze_delay);
-    // The existing Snooze row has no defined setting; preserve it as a placeholder.
-    const String snooze = "--";
+    const String snooze = "Enabled";
     const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
     const String snooze_amount(settings.snooze_amount);
 
@@ -458,8 +450,7 @@ void draw_alarm3_screen(int y){
     const String daily = settings.day == 7 ? "On" : "Off";
     const String day(settings.month_day), month(settings.month), sound(settings.selected_sound);
     const String snooze_length(settings.snooze_delay);
-    // The existing Snooze row has no defined setting; preserve it as a placeholder.
-    const String snooze = "--";
+    const String snooze = "Enabled";
     const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
     const String snooze_amount(settings.snooze_amount);
 

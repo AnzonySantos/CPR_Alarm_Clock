@@ -23,12 +23,11 @@ void toggle_invert(bool is_inverted);
 
 ///RTC clock functions
 void set_rtc_time(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second);
-void get_rtc_time();///Need to include some parameter, however im not sure what that struct looks like yet
+void get_rtc_time();
 
 ///Audio Functions
 void stop_sound();
 void play_sound(uint8_t tone);
-//next_snooze_length()
 
 //Alarm functions
 int current_time_seconds();

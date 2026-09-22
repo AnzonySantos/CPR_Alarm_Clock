@@ -1,6 +1,4 @@
 //Brief: Logic for many of the functions called to
-//interface with the hardware. May want to split up into different files
-//but I thought this would be a nice place for now.
 #include "hardware_helpers.h"
 #include "globals.h"
 
@@ -58,7 +56,6 @@ void get_rtc_time(){
     global_clock_weekday = current_rtc_time.dayOfTheWeek();
 }
 void set_rtc_time(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second){
-    ///May want to include guards and debug prints, but for now it should be fine.
     rtc.adjust(DateTime(year, month, day, hour, minute, second));
 }
 
