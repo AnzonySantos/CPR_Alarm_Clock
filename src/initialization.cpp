@@ -172,6 +172,15 @@ void back(){//back helps with navigation
     y = 0;
     x_level = true;
     y_level = false;
+    for(int i = 0; i < 3; i++){
+        alarms[i].hours_flag = false;
+        alarms[i].minutes_flag = false;
+        alarms[i].secs_flag = false;
+        alarms[i].day_flag = false;
+        alarms[i].month_flag = false;
+        alarms[i].snooze_delay_flag = false;
+        alarms[i].number_of_snoozes_flag = false; 
+    }
 }
 
 void button2_callback(){
