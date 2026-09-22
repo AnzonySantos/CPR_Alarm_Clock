@@ -120,10 +120,10 @@ void draw_home_screen(){
         u8g2.drawStr(start_x + time_width + gap, 42, am_pm_str);
     }
     u8g2.setFont(u8g2_font_6x12_tr);
-    u8g2.drawStr(0, 63, "< Snooze");
-    const char* menu_label = "Menu >";
-    uint16_t menu_width = u8g2.getStrWidth(menu_label);
-    u8g2.drawStr(128 - menu_width, 63, menu_label);
+    u8g2.drawStr(0, 63, "< Menu");
+    const char* snooze_label = "Snooze >";
+    uint16_t snooze_width = u8g2.getStrWidth(snooze_label);
+    u8g2.drawStr(128 - snooze_width, 63, snooze_label);
     u8g2.sendBuffer();
 }
 
@@ -181,23 +181,23 @@ void draw_display_settings_screen(int y){
         case 0:
             u8g2.drawStr(2, 28, ">");
             u8g2.drawStr(16, 28, ("Brightness: " + brightness).c_str());
-            u8g2.drawStr(16, 44, ("Daylight Savings: " + daylight_savings).c_str());
+            u8g2.drawStr(16, 44, ("DST: " + daylight_savings).c_str());
             u8g2.drawStr(16, 60, ("Military Time: " + military_time).c_str());
             break;
         case 1:
             u8g2.drawStr(16, 28, ("Brightness: " + brightness).c_str());
             u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, ("Daylight Savings: " + daylight_savings).c_str());
+            u8g2.drawStr(16, 44, ("DST: " + daylight_savings).c_str());
             u8g2.drawStr(16, 60, ("Military Time: " + military_time).c_str());
             break;
         case 2:
-            u8g2.drawStr(16, 28, ("Daylight Savings: " + daylight_savings).c_str());
+            u8g2.drawStr(16, 28, ("DST: " + daylight_savings).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Military Time: " + military_time).c_str());
             u8g2.drawStr(16, 60, "Back");
             break;
         case 3:
-            u8g2.drawStr(16, 28, ("Daylight Savings: " + daylight_savings).c_str());
+            u8g2.drawStr(16, 28, ("DST: " + daylight_savings).c_str());
             u8g2.drawStr(16, 44, ("Military Time: " + military_time).c_str());
             u8g2.drawStr(2, 60, ">");
             u8g2.drawStr(16, 60, "Back");
