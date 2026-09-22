@@ -190,6 +190,7 @@ void loop() {
         snooze_new_alarm.second = snooze_time_seconds;
         snooze_new_alarm.toggle = true;
         snooze_new_alarm.is_snooze = true; // indicating this is a snooze alarm
+        snooze_new_alarm.snooze_delay = alarms[what_alarm].snooze_delay;
         snooze_new_alarm.selected_sound = alarms[what_alarm].selected_sound;
 
         alarms.push_back(snooze_new_alarm);
