@@ -4,7 +4,6 @@
 #include "hardware_helpers.h"
 #include "globals.h"
 
-
 void initalization(){
     if (debug_flag) {
         Serial.begin(9600);
@@ -13,7 +12,6 @@ void initalization(){
     library_setup();
     initalize_data();
 }
-
 
 void hardware_setup(){
     //Pin Assignments
@@ -139,10 +137,6 @@ void backup_data() {
     prefs.end();
 }
 
-//Note to self: Button ISR's. Rename if you'd like they're just here as they are needed to compile. If issues arise when removing or renaming them
-//make sure to update the "attachInterrupt(<PIN>, <ISR>, <EDGE>)" functions seen above in the interrupt declarations. If some more issues
-//arise make sure they are linked by including the apropriate header file.
-//menu button
 void button1_callback(){
     unsigned long now = millis();
     if (now - last_button1_pressed_time < DEBOUNCE_DELAY_MS){
@@ -166,7 +160,7 @@ void button1_callback(){
         alarms[i].number_of_snoozes_flag = false; 
     }
 }
-//select button
+
 void back(){//back helps with navigation
     count = 0;
     y = 0;
@@ -206,7 +200,7 @@ void button2_callback(){
 
     switch(x){
         case 0:
-        //display settings
+            //display settings
             switch(y){
                 case 0:
                     if(bright == "auto"){ bright = "high"; }
@@ -228,7 +222,6 @@ void button2_callback(){
                             global_clock_hours -= 1;
                         }
                     }
-                //set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
                 return;
                 case 2:
                     mil_time_flag = !mil_time_flag;
@@ -245,27 +238,21 @@ void button2_callback(){
             switch(y){
                 case 0:
                     clock_hour_flag = !clock_hour_flag;
-                    //if (clock_hour_flag) get_rtc_time(); 
                     return;
                 case 1:
                     clock_minute_flag = !clock_minute_flag;
-                    //if (clock_minute_flag) get_rtc_time();
                     return;
                 case 2:
                     clock_second_flag = !clock_second_flag;
-                    //if (clock_second_flag) get_rtc_time();
                     return; 
                 case 3:
                     clock_day_flag = !clock_day_flag;
-                    //if (clock_day_flag) get_rtc_time();
                     return;
                 case 4:
                     clock_month_flag = !clock_month_flag;
-                    //if (clock_month_flag) get_rtc_time();
                     return;
                 case 5:
                     clock_year_flag = !clock_year_flag;
-                    //if (clock_year_flag) get_rtc_time();
                     return; 
                 case 6:
                     back();
