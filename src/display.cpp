@@ -137,19 +137,19 @@ void draw_options_screen(int x){
         case 0:
             u8g2.drawStr(2, 28, ">");
             u8g2.drawStr(16, 28, "Display Settings");
-            u8g2.drawStr(16, 44, "Clock Settings");
+            u8g2.drawStr(16, 44, "Set Time");
             u8g2.drawStr(16, 60, "Alarm 1");
             break;
 
         case 1:
             u8g2.drawStr(16, 28, "Display Settings");
             u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, "Clock Settings");
+            u8g2.drawStr(16, 44, "Set Time");
             u8g2.drawStr(16, 60, "Alarm 1");
             break;
 
         case 2:
-            u8g2.drawStr(16, 28, "Clock Settings");
+            u8g2.drawStr(16, 28, "Set Time");
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, "Alarm 1");
             u8g2.drawStr(16, 60, "Alarm 2");
@@ -212,7 +212,7 @@ void draw_clock_settings_screen(int y){
     const String day(global_clock_day), month(global_clock_month), year(global_clock_year);
 
     u8g2.setFont(u8g2_font_6x12_tr);
-    u8g2.drawStr(2, 12, "Clock Settings");
+    u8g2.drawStr(2, 12, "Set Time");
     u8g2.setFont(u8g2_font_6x10_tr);
     switch (y){
         case 0:
@@ -228,10 +228,10 @@ void draw_clock_settings_screen(int y){
             u8g2.drawStr(16, 60, ("Seconds: " + seconds).c_str());
             break;
         case 2:
-            u8g2.drawStr(16, 28, ("Hours: " + hours).c_str());
+            u8g2.drawStr(16, 28, ("Minutes: " + minutes).c_str());
             u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, ("Minutes: " + minutes).c_str());
-            u8g2.drawStr(16, 60, ("Seconds: " + seconds).c_str());
+            u8g2.drawStr(16, 44, ("Seconds: " + seconds).c_str());
+            u8g2.drawStr(16, 60, ("Day: " + day).c_str());
             break;
         case 3:
             u8g2.drawStr(16, 28, ("Seconds: " + seconds).c_str());
