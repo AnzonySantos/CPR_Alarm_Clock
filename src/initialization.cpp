@@ -207,12 +207,14 @@ void button2_callback(){
                     if(dls_flag){
                         global_clock_hours += 1;
                         global_clock_hours = global_clock_hours % 24;
-                        set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
                     }
-                    else if(!dls_flag){
-                        global_clock_hours -= 1;
-                        global_clock_hours = global_clock_hours % 24;
-                        set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);                       
+                    else{
+                        if(global_clock_hours == 0) {
+                            global_clock_hours = 23; //midnight edge case
+                        } else {
+                            global_clock_hours -= 1;
+                        }
+                    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
                     }
                 return;
                 case 2:
