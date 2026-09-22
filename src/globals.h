@@ -101,7 +101,7 @@ extern bool clock_second_flag;
 
 extern int x_max;
 extern bool is_alarm;
-
+extern int current_alarm_snooze_count;
 const char* alarm_day_text(int day);
 
 #endif

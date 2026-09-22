@@ -141,6 +141,14 @@ void loop() {
     if(current_time_seconds() == alarms[i].toSeconds() && (rtc.now().dayOfTheWeek() == alarms[i].day || alarms[i].day == 7 || (rtc.now().day() == alarms[i].month_day && rtc.now().month() == alarms[i].month)) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
       alarm_start_time = millis(); // when the alarm started
       buzzer_active = true; // the alarm is sounding
+      if(alarms[i].is_snooze == false){ // if this is not a snooze alarm, set the current_alarm_snooze_count to the number of snoozes for this alarm
+        if(alarms[i].snooze_amount == 0){
+          current_alarm_snooze_count = -1
+        }
+        else{
+          current_alarm_snooze_count = alarms[i].snooze_amount;
+        }
+      }
       is_alarm = true;
       in_menu = false;
       count = 0;
@@ -175,7 +183,8 @@ void loop() {
       // IF WE ARE SNOOZING
       if(snooze_alarm == true){
         snooze_alarm = false; // reset variable 
-
+        current_alarm_snooze_count--; // decrement the snooze count
+        if(current_alarm_snooze_count != 0){
         //find the time the new snooze alarm should be set to (in seconds)
         long snooze_time_seconds_delay = (current_time_seconds() + (alarms[what_alarm].snooze_delay * 60)) % 86400;
 
@@ -189,10 +198,12 @@ void loop() {
         snooze_new_alarm.minutes = snooze_time_minutes;
         snooze_new_alarm.second = snooze_time_seconds;
         snooze_new_alarm.toggle = true;
+        snooze_new_alarm.snooze_amount = current_alarm_snooze_count - 1;
         snooze_new_alarm.is_snooze = true; // indicating this is a snooze alarm
         snooze_new_alarm.selected_sound = alarms[what_alarm].selected_sound;
 
         alarms.push_back(snooze_new_alarm);
+        }
       }
 
       // delete the alarm if it is a temp snooze alarm
