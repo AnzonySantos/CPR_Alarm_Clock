@@ -2,9 +2,9 @@
 #define DISPLAY_H
 
 //8 bit value sent to OLED to tell it how bright its going to be 
-#define LOW_BRIGHTNESS_LEVEL        255
-#define MEDIUM_BRIGHTNESS_LEVEL     150
-#define HIGH_BRIGHTNESS_LEVEL       50
+#define LOW_BRIGHTNESS_LEVEL        10
+#define MEDIUM_BRIGHTNESS_LEVEL     100
+#define HIGH_BRIGHTNESS_LEVEL       255
 
 // Navigation indices retain their signed int type across module boundaries.
 // in_menu=true displays menus; false displays home.

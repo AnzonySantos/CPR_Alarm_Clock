@@ -11,38 +11,36 @@ void update_display(int x, int y, bool in_menu){
     u8g2.sendBuffer();
 }
 
-void check_brightness(){
-    // raw_brightness_value is the shared sensor input; acquisition is deferred.
+void check_brightness() {
     uint16_t raw_brightness_value = analogRead(BRIGHTNESS_PIN);
-    if (bright == "auto"){
-        if (raw_brightness_value >= 150 && raw_brightness_value <= 400){
-           u8g2.setContrast(HIGH_BRIGHTNESS_LEVEL); 
+
+    // Uncomment during testing:
+    // Serial.print("Brightness ADC: ");
+    // Serial.println(raw_brightness_value);
+
+    if (bright == "auto") {
+        if (raw_brightness_value < 1100) {
+            // Bright room: make the OLED easier to see
+            u8g2.setContrast(HIGH_BRIGHTNESS_LEVEL);
         }
-        else if (raw_brightness_value >= 31 && raw_brightness_value < 149){
-           u8g2.setContrast(MEDIUM_BRIGHTNESS_LEVEL); 
-        }
-        else if (raw_brightness_value < 30){
-           u8g2.setContrast(LOW_BRIGHTNESS_LEVEL); 
-        }
-        else{
-            ///Maybe add serial print debug statement, if you get to this point somethings gone wrong lol
-        }
-    }
-    else{
-        if (bright == "low"){ //LOW
-           u8g2.setContrast(LOW_BRIGHTNESS_LEVEL); 
-        }
-        else if (bright == "med"){ //MEDIUM
-           u8g2.setContrast(MEDIUM_BRIGHTNESS_LEVEL); 
-        }
-        else if (bright == "high"){ //HIGH
-           u8g2.setContrast(HIGH_BRIGHTNESS_LEVEL); 
+        else if (raw_brightness_value < 2100) {
+            // Normal room lighting
+            u8g2.setContrast(MEDIUM_BRIGHTNESS_LEVEL);
         }
         else {
-            ///Again you could add a potential debug statement if things go wrong   
+            // Dark room: reduce OLED brightness
+            u8g2.setContrast(LOW_BRIGHTNESS_LEVEL);
         }
     }
-    return;
+    else if (bright == "low") {
+        u8g2.setContrast(LOW_BRIGHTNESS_LEVEL);
+    }
+    else if (bright == "med") {
+        u8g2.setContrast(MEDIUM_BRIGHTNESS_LEVEL);
+    }
+    else if (bright == "high") {
+        u8g2.setContrast(HIGH_BRIGHTNESS_LEVEL);
+    }
 }
 
 
