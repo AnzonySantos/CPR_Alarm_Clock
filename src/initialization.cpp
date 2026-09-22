@@ -334,6 +334,8 @@ void button3_callback(){
         return;
     }
     last_button3_pressed_time = now;
-
-    snooze_alarm = true;
+    if(buzzer_active){
+        snooze_alarm = true;
+        return;
+    }
 }
