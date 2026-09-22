@@ -41,3 +41,8 @@ const char* alarm_day_text(int day) {
     static const char* const names[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Every"};
     return day >= 0 && day <= 7 ? names[day] : "?";
 }
+
+
+unsigned long last_button1_pressed_time = 0;
+unsigned long last_button2_pressed_time = 0;
+unsigned long last_button3_pressed_time = 0;

@@ -104,4 +104,7 @@ extern bool is_alarm;
 
 const char* alarm_day_text(int day);
 
+extern unsigned long last_button1_pressed_time;
+extern unsigned long last_button2_pressed_time;
+extern unsigned long last_button3_pressed_time;
 #endif
