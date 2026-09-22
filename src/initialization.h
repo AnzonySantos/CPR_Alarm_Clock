@@ -26,8 +26,7 @@
 
 #define  DEBOUNCE_DELAY_MS      250
 
-
-//Hardware Objects. We may just want to move the initialization and their declaration here.
+//Hardware Objects
 extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2;
 extern RTC_DS3231 rtc;
 extern ESP32Encoder encoder;
@@ -41,7 +40,7 @@ void library_setup();
 void initalize_data();
 void backup_data();
 
-//Button ISR's Note: Rename and if you'd like they're just here as they are needed to compile
+//Button
 void button1_callback();
 void button2_callback();
 void button3_callback();
