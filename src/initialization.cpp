@@ -1,6 +1,7 @@
 //Breif: Serves as the header file for the initalization functions (hardware, libraries, and data)
 #include "initialization.h"
 #include <navigation.h>
+#include "hardware_helpers.h"
 #include "globals.h"
 
 
@@ -219,31 +220,31 @@ void button2_callback(){
             switch(y){
                 case 0:
                     clock_hour_flag = !clock_hour_flag;
-                    if (clock_hour_flag) get_rtc_time(); 
+                    //if (clock_hour_flag) get_rtc_time(); 
                     return;
                 case 1:
                     clock_minute_flag = !clock_minute_flag;
-                    if (clock_minute_flag) get_rtc_time(); 
+                    //if (clock_minute_flag) get_rtc_time();
                     return;
                 case 2:
                     clock_second_flag = !clock_second_flag;
-                    if (clock_second_flag) get_rtc_time(); 
-                    return;
+                    //if (clock_second_flag) get_rtc_time();
+                    return; 
                 case 3:
                     clock_day_flag = !clock_day_flag;
-                    if (clock_day_flag) get_rtc_time(); 
+                    //if (clock_day_flag) get_rtc_time();
                     return;
                 case 4:
                     clock_month_flag = !clock_month_flag;
-                    if (clock_month_flag) get_rtc_time(); 
+                    //if (clock_month_flag) get_rtc_time();
                     return;
                 case 5:
                     clock_year_flag = !clock_year_flag;
-                    if (clock_year_flag) get_rtc_time(); 
-                    return;
+                    //if (clock_year_flag) get_rtc_time();
+                    return; 
                 case 6:
                     back();
-                    return;
+                    break;
                 default:
                     return;
             }

@@ -36,14 +36,15 @@ void loop() {
   count = encoder.getCount();
   if(in_menu){
     if(x_level){
-      x = count/2 % 5;
+      x += count/2;
       if(x < 0){
-        x = 0
+        x = 0;
       }
       if(x > 4){
-        x = 4
+        x = 4;
       }
       count = 0;
+      encoder.clearCount();
     }
     else if(y_level){
   if(what_alarm >= 0 && what_alarm < alarms.size() && alarms[what_alarm].hours_flag){
@@ -85,7 +86,6 @@ void loop() {
     if(alarms[what_alarm].month_day > 31 || alarms[what_alarm].month_day < 1){
       alarms[what_alarm].month_day = 1;
     }
-    if 
     count = 0;
     encoder.clearCount();
   }
@@ -141,10 +141,10 @@ void loop() {
   else if(x == 4 || x == 2 || x == 3){
     y += count/2 % 12;
     if(y < 0){
-      y = 0
+      y = 0;
     }
-    if(y > 11){
-      y = 11
+    if(y > 12){
+      y = 12;
     }
     count = 0;
     encoder.clearCount();
@@ -152,10 +152,10 @@ void loop() {
   else if(x == 0){
     y += count/2 % 4;
     if(y < 0){
-      y = 0
+      y = 0;
     }
     if(y > 3){
-      y = 3
+      y = 3;
     }
     count = 0;
     encoder.clearCount();
@@ -163,10 +163,10 @@ void loop() {
   else if(x == 1){
     y += count/2 % 6;
     if(y < 0){
-      y = 0
+      y = 0;
     }
     if(y > 6){
-      y = 6
+      y = 6;
     }
     count = 0;
     encoder.clearCount();
