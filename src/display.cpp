@@ -15,13 +15,13 @@ void check_brightness(){
     // raw_brightness_value is the shared sensor input; acquisition is deferred.
     uint16_t raw_brightness_value = analogRead(BRIGHTNESS_PIN);
     if (bright == "auto"){
-        if (raw_brightness_value >= 2854 && raw_brightness_value <= 4095){
+        if (raw_brightness_value >= 150 && raw_brightness_value <= 400){
            u8g2.setContrast(HIGH_BRIGHTNESS_LEVEL); 
         }
-        else if (raw_brightness_value >= 1613 && raw_brightness_value < 2854){
+        else if (raw_brightness_value >= 31 && raw_brightness_value < 149){
            u8g2.setContrast(MEDIUM_BRIGHTNESS_LEVEL); 
         }
-        else if (raw_brightness_value < 1613){
+        else if (raw_brightness_value < 30){
            u8g2.setContrast(LOW_BRIGHTNESS_LEVEL); 
         }
         else{
@@ -269,7 +269,8 @@ void draw_alarm1_screen(int y){
     const String snooze_length(settings.snooze_delay);
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
-    const String delay_var(settings.alarm_durration_seconds), snooze_amount(settings.snooze_amount);
+    const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(2, 12, "Alarm 1 Settings");
@@ -333,22 +334,22 @@ void draw_alarm1_screen(int y){
             u8g2.drawStr(16, 28, ("Snooze Length: " + snooze_length).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Snooze: " + snooze).c_str());
-            u8g2.drawStr(16, 60, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 60, ("Sounding Time: " + delay_var).c_str());
             break;
         case 10:
             u8g2.drawStr(16, 28, ("Snooze: " + snooze).c_str());
             u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 44, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(16, 60, ("Snooze Amount: " + snooze_amount).c_str());
             break;
         case 11:
-            u8g2.drawStr(16, 28, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 28, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Snooze Amount: " + snooze_amount).c_str());
             u8g2.drawStr(16, 60, "Back");
             break;
         case 12:
-            u8g2.drawStr(16, 28, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 28, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(16, 44, ("Snooze Amount: " + snooze_amount).c_str());
             u8g2.drawStr(2, 60, ">");
             u8g2.drawStr(16, 60, "Back");
@@ -364,7 +365,8 @@ void draw_alarm2_screen(int y){
     const String snooze_length(settings.snooze_delay);
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
-    const String delay_var(settings.alarm_durration_seconds), snooze_amount(settings.snooze_amount);
+    const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(2, 12, "Alarm 2 Settings");
@@ -428,22 +430,22 @@ void draw_alarm2_screen(int y){
             u8g2.drawStr(16, 28, ("Snooze Length: " + snooze_length).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Snooze: " + snooze).c_str());
-            u8g2.drawStr(16, 60, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 60, ("Sounding Time: " + delay_var).c_str());
             break;
         case 10:
             u8g2.drawStr(16, 28, ("Snooze: " + snooze).c_str());
             u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 44, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(16, 60, ("Snooze Amount: " + snooze_amount).c_str());
             break;
         case 11:
-            u8g2.drawStr(16, 28, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 28, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Snooze Amount: " + snooze_amount).c_str());
             u8g2.drawStr(16, 60, "Back");
             break;
         case 12:
-            u8g2.drawStr(16, 28, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 28, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(16, 44, ("Snooze Amount: " + snooze_amount).c_str());
             u8g2.drawStr(2, 60, ">");
             u8g2.drawStr(16, 60, "Back");
@@ -460,7 +462,8 @@ void draw_alarm3_screen(int y){
     const String snooze_length(settings.snooze_delay);
     // The existing Snooze row has no defined setting; preserve it as a placeholder.
     const String snooze = "--";
-    const String delay_var(settings.alarm_durration_seconds), snooze_amount(settings.snooze_amount);
+    const String delay_var(settings.alarm_durration_seconds == 180 ? 0 : settings.alarm_durration_seconds);
+    const String snooze_amount(settings.snooze_amount);
 
     u8g2.setFont(u8g2_font_6x12_tr);
     u8g2.drawStr(2, 12, "Alarm 3 Settings");
@@ -524,22 +527,22 @@ void draw_alarm3_screen(int y){
             u8g2.drawStr(16, 28, ("Snooze Length: " + snooze_length).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Snooze: " + snooze).c_str());
-            u8g2.drawStr(16, 60, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 60, ("Sounding Time: " + delay_var).c_str());
             break;
         case 10:
             u8g2.drawStr(16, 28, ("Snooze: " + snooze).c_str());
             u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 44, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(16, 60, ("Snooze Amount: " + snooze_amount).c_str());
             break;
         case 11:
-            u8g2.drawStr(16, 28, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 28, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Snooze Amount: " + snooze_amount).c_str());
             u8g2.drawStr(16, 60, "Back");
             break;
         case 12:
-            u8g2.drawStr(16, 28, ("Delay: " + delay_var).c_str());
+            u8g2.drawStr(16, 28, ("Sounding Time: " + delay_var).c_str());
             u8g2.drawStr(16, 44, ("Snooze Amount: " + snooze_amount).c_str());
             u8g2.drawStr(2, 60, ">");
             u8g2.drawStr(16, 60, "Back");
