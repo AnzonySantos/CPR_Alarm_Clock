@@ -9,23 +9,22 @@
 #include "globals.h"
 #include "display.h"
 
-/* Nav Variables */
+//nav vars
 int y_max = 9;
 int x_max = 4;
 uint8_t clock_hours = 0;
 uint8_t clock_mins = 0;
 uint8_t clock_sec = 0;
 
-/* Delays */
+//delay vars
 unsigned long previousMillis = 0;
-const unsigned long interval = 500; // 500 ms = .5 second
+const unsigned long interval = 500;
 
-/* Ran once on setup */
 void setup() {
   initalization();
 }
 
-/* Main Loop */
+
 void loop() {
   update_display(x, y, in_menu);
   count = encoder.getCount();
@@ -225,9 +224,7 @@ void loop() {
     }
   }
 
-  /* 
-  ALARM PORTION
-  */
+  //alarm logic
   for (int i = 0; i < alarms.size(); i++){
     if(current_time_seconds() == alarms[i].toSeconds() && (rtc.now().dayOfTheWeek() == alarms[i].day || alarms[i].day == 7 || (rtc.now().day() == alarms[i].month_day && rtc.now().month() == alarms[i].month)) && !buzzer_active){ // correct time and day [7=everydy], and buzzer isnt active
       alarm_start_time = millis(); // when the alarm started
@@ -259,7 +256,6 @@ void loop() {
       what_alarm = i; // track what alarm should be sounded
     }
   }
-  //DURATION CHECK
   if(buzzer_active) {
     // has the alarm reached its set duration yet
     unsigned long elapsed_ms = millis() - alarm_start_time;
@@ -270,10 +266,9 @@ void loop() {
       stop_sound(); // stop sound
       buzzer_active = false;
       is_alarm = false;
-      stop_alarm = false; // reset variable
-      // IF WE ARE SNOOZING
+      stop_alarm = false;
       if(snooze_alarm == true){
-        snooze_alarm = false; // reset variable 
+        snooze_alarm = false;
         if(current_alarm_snooze_count != -1) current_alarm_snooze_count--; // decrement the snooze count
         if(current_alarm_snooze_count != 0){
         //find the time the new snooze alarm should be set to (in seconds)

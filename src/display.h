@@ -6,7 +6,7 @@
 #define MEDIUM_BRIGHTNESS_LEVEL     100
 #define HIGH_BRIGHTNESS_LEVEL       255
 
-// in_menu=true displays menus; false displays home.
+// in_menu=true displays menus, false displays home
 void update_display(int x, int y, bool in_menu);
 void render_screen(int x, int y, bool in_menu);
 void check_brightness();

@@ -265,7 +265,7 @@ void button2_callback(){
         case 2:
         case 3:
         case 4: {
-            int alarm_index = x - 2;   // x=2 -> alarms[0], x=3 -> alarms[1], x=4 -> alarms[2]
+            int alarm_index = x - 2;
             AlarmSettings &a = alarms[alarm_index];
             what_alarm = alarm_index;
 
