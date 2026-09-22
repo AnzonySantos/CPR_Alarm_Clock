@@ -216,24 +216,38 @@ void button2_callback(){
         return;
 
         case 1:
-        //clock settings
             switch(y){
                 case 0:
-                clock_hour_flag = !clock_hour_flag;
-                return;
+                    clock_hour_flag = !clock_hour_flag;
+                    if (clock_hour_flag) get_rtc_time(); 
+                    return;
                 case 1:
-                clock_minute_flag = !clock_minute_flag;
-                return;
+                    clock_minute_flag = !clock_minute_flag;
+                    if (clock_minute_flag) get_rtc_time(); 
+                    return;
                 case 2:
-                clock_second_flag = !clock_second_flag;
-                return;
+                    clock_second_flag = !clock_second_flag;
+                    if (clock_second_flag) get_rtc_time(); 
+                    return;
                 case 3:
-                back();
-                return;
+                    clock_day_flag = !clock_day_flag;
+                    if (clock_day_flag) get_rtc_time(); 
+                    return;
+                case 4:
+                    clock_month_flag = !clock_month_flag;
+                    if (clock_month_flag) get_rtc_time(); 
+                    return;
+                case 5:
+                    clock_year_flag = !clock_year_flag;
+                    if (clock_year_flag) get_rtc_time(); 
+                    return;
+                case 6:
+                    back();
+                    return;
                 default:
-                return;
+                    return;
             }
-        return;
+            return;
 
         case 2:
         case 3:

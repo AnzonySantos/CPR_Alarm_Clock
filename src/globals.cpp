@@ -42,6 +42,9 @@ int global_clock_weekday = 6;
 bool clock_hour_flag = false;
 bool clock_minute_flag = false;
 bool clock_second_flag = false;
+bool clock_day_flag = false;
+bool clock_month_flag = false;
+bool clock_year_flag = false;
 
 const char* alarm_day_text(int day) {
     static const char* const names[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Every"};

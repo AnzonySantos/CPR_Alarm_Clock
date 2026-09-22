@@ -98,18 +98,41 @@ void loop() {
     global_clock_hours = global_clock_hours % 24;
     count = 0;
     encoder.clearCount();
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
   }
   else if(clock_minute_flag){
     global_clock_minutes += count/2;
     global_clock_minutes = global_clock_minutes % 60;
     count = 0;
     encoder.clearCount();
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
   }
   else if(clock_second_flag){
     global_clock_seconds += count/2;
     global_clock_seconds = global_clock_seconds % 60;
     count = 0;
     encoder.clearCount();
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
+  }
+    else if(clock_day_flag){
+    global_clock_day += count/2;
+    global_clock_day = global_clock_day % 31;
+    count = 0;
+    encoder.clearCount();
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
+  }
+  else if(clock_month_flag){
+    global_clock_month += count/2;
+    global_clock_month = global_clock_month % 12;
+    count = 0;
+    encoder.clearCount();
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
+  }
+  else if(clock_year_flag){
+    global_clock_year += count/2;
+    count = 0;
+    encoder.clearCount();
+    set_rtc_time(global_clock_year, global_clock_month, global_clock_day, global_clock_hours, global_clock_minutes, global_clock_seconds);
   }
   else if(x == 4 || x == 2 || x == 3){
     y += count/2 % 12;
@@ -128,7 +151,7 @@ void loop() {
     encoder.clearCount();
   }
   else if(x == 1){
-    y += count/2 % 7;
+    y += count/2 % 6;
     if(y < 0){
       y = y_max + y;
     }

@@ -2,6 +2,7 @@
 //interface with the hardware. May want to split up into different files
 //but I thought this would be a nice place for now.
 #include "hardware_helpers.h"
+#include "globals.h"
 
 void invert_display(){
     u8g2.sendF("c", INVERT_DISPLAY_COMMAND);
@@ -62,6 +63,8 @@ void set_rtc_time(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8
 }
 
 int current_time_seconds(){
-    get_rtc_time();
+    if (!clock_hour_flag && !clock_minute_flag && !clock_second_flag) {
+        get_rtc_time();
+    }
     return global_clock_hours * 3600 + global_clock_minutes * 60 + global_clock_seconds;
 }

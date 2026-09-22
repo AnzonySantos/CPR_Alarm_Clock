@@ -90,6 +90,10 @@ extern int global_clock_weekday;
 extern bool clock_hour_flag;
 extern bool clock_minute_flag;
 extern bool clock_second_flag;
+extern bool clock_day_flag;
+extern bool clock_month_flag;
+extern bool clock_year_flag;
+
 
 extern bool is_inverted;
 

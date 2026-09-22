@@ -229,35 +229,29 @@ void draw_clock_settings_screen(int y){
             break;
         case 2:
             u8g2.drawStr(16, 28, ("Hours: " + hours).c_str());
+            u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Minutes: " + minutes).c_str());
-            u8g2.drawStr(2, 60, ">");
             u8g2.drawStr(16, 60, ("Seconds: " + seconds).c_str());
             break;
         case 3:
-            u8g2.drawStr(16, 28, ("Minutes: " + minutes).c_str());
-            u8g2.drawStr(2, 44, ">");
-            u8g2.drawStr(16, 44, ("Seconds: " + seconds).c_str());
-            u8g2.drawStr(16, 60, ("Day: " + day).c_str());
-            break;
-        case 4:
             u8g2.drawStr(16, 28, ("Seconds: " + seconds).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Day: " + day).c_str());
             u8g2.drawStr(16, 60, ("Month: " + month).c_str());
             break;
-        case 5:
+        case 4:
             u8g2.drawStr(16, 28, ("Day: " + day).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Month: " + month).c_str());
             u8g2.drawStr(16, 60, ("Year: " + year).c_str());
             break;
-        case 6:
+        case 5:
             u8g2.drawStr(16, 28, ("Month: " + month).c_str());
             u8g2.drawStr(2, 44, ">");
             u8g2.drawStr(16, 44, ("Year: " + year).c_str());
             u8g2.drawStr(16, 60, "Back");
             break;
-        case 7:
+        case 6:
             u8g2.drawStr(16, 28, ("Month: " + month).c_str());
             u8g2.drawStr(16, 44, ("Year: " + year).c_str());
             u8g2.drawStr(2, 60, ">");
