@@ -14,6 +14,7 @@ volatile bool stop_alarm = false;
 volatile bool snooze_alarm = false;
 bool is_alarm = false;
 
+bool is_inverted = false;
 bool in_menu = false;
 int x = 0;
 int y = 0;

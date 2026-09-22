@@ -20,6 +20,10 @@ uint8_t clock_hours = 0;
 uint8_t clock_mins = 0;
 uint8_t clock_sec = 0;
 
+/* Delays */
+unsigned long previousMillis = 0;
+const unsigned long interval = 500; // 500 ms = .5 second
+
 /* Ran once on setup */
 void setup() {
   initalization();
@@ -165,7 +169,6 @@ void loop() {
         alarms[i].snooze_delay_flag = false;
         alarms[i].number_of_snoozes_flag = false; 
     }
-      play_sound(1);
       what_alarm = i; // track what alarm should be sounded
     }
   }
@@ -174,6 +177,7 @@ void loop() {
     // has the alarm reached its set duration yet
     unsigned long elapsed_ms = millis() - alarm_start_time;
     bool duration_expired = elapsed_ms >= (unsigned long)(alarms[what_alarm].alarm_durration_seconds * 1000);
+    unsigned long currentMillis = millis();
 
     if(stop_alarm || duration_expired || snooze_alarm ) { // if button is pressed or duration has expired or snoozed
       stop_sound(); // stop sound
@@ -212,8 +216,17 @@ void loop() {
       }
       
     } else {
+      // inverting the display
+      if (currentMillis - previousMillis >= interval) {
+      previousMillis = currentMillis;
+      toggle_invert(is_inverted);
+      is_inverted = !is_inverted;
+      }
       play_sound(alarms[what_alarm].selected_sound);
     }
+  }else{
+    revert_display();
+    is_inverted = false;
   }
   backup_data();
 }

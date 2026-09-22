@@ -91,6 +91,8 @@ extern bool clock_hour_flag;
 extern bool clock_minute_flag;
 extern bool clock_second_flag;
 
+extern bool is_inverted;
+
 extern int y_max;
 /*
 extern uint8_t clock_hours;
