@@ -89,8 +89,8 @@ void loop() {
     if(alarms[what_alarm].snooze_delay > 15){
       alarms[what_alarm].snooze_delay = 5;
     }
-    if(alarms[what_alarm].snooze_delay < 0){
-      alarms[what_alarm].snooze_delay = 0;
+    if(alarms[what_alarm].snooze_delay < 5){
+      alarms[what_alarm].snooze_delay = 15;
     }
     count = 0;
     encoder.clearCount();

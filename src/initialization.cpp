@@ -316,7 +316,7 @@ void button2_callback(){
                 case 10://Ddely
                     if(a.alarm_durration_seconds == 15) a.alarm_durration_seconds = 30;
                     else if(a.alarm_durration_seconds == 30) a.alarm_durration_seconds = 60;
-                    else if(a.alarm_durration_seconds == 60) a.alarm_durration_seconds = 180;
+                    else if(a.alarm_durration_seconds == 60) a.alarm_durration_seconds = 6000;
                     else a.alarm_durration_seconds = 15;
                 return;
                 case 11:
