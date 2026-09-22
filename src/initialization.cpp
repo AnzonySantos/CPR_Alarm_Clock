@@ -180,9 +180,12 @@ void button2_callback(){
         return;
     }
     last_button2_pressed_time = now;
-
     count = 0;
     encoder.clearCount();
+    if(buzzer_active){
+        stop_alarm = true;
+        return;
+    }
     if (!in_menu){
         return;
     }
