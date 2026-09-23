@@ -231,7 +231,7 @@ void loop() {
       buzzer_active = true; // the alarm is sounding
       if(alarms[i].is_snooze == false){ // if this is not a snooze alarm, set the current_alarm_snooze_count to the number of snoozes for this alarm
         if(alarms[i].snooze_amount == 0){
-          current_alarm_snooze_count = -1;
+          current_alarm_snooze_count = 99999;
         }
         else{
           current_alarm_snooze_count = (alarms[i].snooze_amount + 1);
@@ -269,8 +269,9 @@ void loop() {
       stop_alarm = false;
       if(snooze_alarm == true){
         snooze_alarm = false;
-        if(current_alarm_snooze_count != -1) current_alarm_snooze_count--; // decrement the snooze count
+ // decrement the snooze count
         if(current_alarm_snooze_count != 0){
+         current_alarm_snooze_count=  current_alarm_snooze_count-1;
         //find the time the new snooze alarm should be set to (in seconds)
         long snooze_time_seconds_delay = (current_time_seconds() + (alarms[what_alarm].snooze_delay * 60)) % 86400;
 
